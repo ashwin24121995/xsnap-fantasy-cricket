@@ -24,7 +24,7 @@ export function Header() {
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-3">
           <img
-            src="/assets/xsnap_logo_horizontal.png"
+            src="/logo.png"
             alt="XSNAP Fantasy Cricket"
             className="h-10 w-auto"
           />
