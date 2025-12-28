@@ -58,31 +58,35 @@ export const matches = mysqlTable("matches", {
   apiMatchId: varchar("apiMatchId", { length: 100 }).notNull().unique(),
   
   // Match details
-  team1: varchar("team1", { length: 255 }).notNull(),
-  team2: varchar("team2", { length: 255 }).notNull(),
-  team1Logo: text("team1Logo"),
-  team2Logo: text("team2Logo"),
-  
-  matchType: mysqlEnum("matchType", ["T20", "ODI", "Test"]).notNull(),
+  name: varchar("name", { length: 500 }).notNull(),
+  matchType: varchar("matchType", { length: 50 }).notNull(), // test, odi, t20
   venue: varchar("venue", { length: 255 }).notNull(),
   
   // Timing
-  startTime: timestamp("startTime").notNull(),
-  endTime: timestamp("endTime"),
+  matchDate: timestamp("matchDate").notNull(),
   
   // Status
-  status: mysqlEnum("status", ["upcoming", "live", "completed", "cancelled"]).default("upcoming").notNull(),
+  status: text("status").notNull(), // Match in progress, Match not started, etc
   
-  // Results
-  winner: varchar("winner", { length: 255 }),
+  // Teams (JSON array)
+  teams: text("teams").notNull(), // JSON: ["India", "Australia"]
+  
+  // Score (JSON)
+  score: text("score"), // JSON: [{r: 250, w: 5, o: 50, inning: "India Inning 1"}]
+  
+  // Series
+  seriesId: varchar("seriesId", { length: 100 }),
+  
+  // Fantasy
+  fantasyEnabled: boolean("fantasyEnabled").default(false).notNull(),
   
   // Timestamps
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 }, (table) => ({
   apiMatchIdIdx: index("api_match_id_idx").on(table.apiMatchId),
-  statusIdx: index("status_idx").on(table.status),
-  startTimeIdx: index("start_time_idx").on(table.startTime),
+  matchDateIdx: index("match_date_idx").on(table.matchDate),
+  fantasyEnabledIdx: index("fantasy_enabled_idx").on(table.fantasyEnabled),
 }));
 
 // Players table - stores cricket player information
@@ -92,15 +96,14 @@ export const players = mysqlTable("players", {
   
   // Player details
   name: varchar("name", { length: 255 }).notNull(),
-  team: varchar("team", { length: 255 }).notNull(),
-  role: mysqlEnum("role", ["batsman", "bowler", "allrounder", "wicketkeeper"]).notNull(),
+  country: varchar("country", { length: 100 }).notNull(),
+  role: varchar("role", { length: 50 }).default("All-rounder").notNull(),
   
   // Profile
   image: text("image"),
-  country: varchar("country", { length: 100 }),
   
   // Fantasy stats
-  price: decimal("price", { precision: 10, scale: 2 }).notNull(), // Credits (0-15)
+  credits: decimal("credits", { precision: 10, scale: 1 }).default("9.0").notNull(), // Credits (5-15)
   points: int("points").default(0).notNull(),
   
   // Performance stats
@@ -114,8 +117,7 @@ export const players = mysqlTable("players", {
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 }, (table) => ({
   apiPlayerIdIdx: index("api_player_id_idx").on(table.apiPlayerId),
-  roleIdx: index("role_idx").on(table.role),
-  teamIdx: index("team_idx").on(table.team),
+  countryIdx: index("country_idx").on(table.country),
 }));
 
 // Teams table - user created fantasy teams
@@ -161,28 +163,7 @@ export const teamPlayers = mysqlTable("teamPlayers", {
   playerIdx: index("player_idx").on(table.playerId),
 }));
 
-// Leaderboards - global and match-specific rankings
-export const leaderboards = mysqlTable("leaderboards", {
-  id: int("id").autoincrement().primaryKey(),
-  userId: int("userId").notNull(),
-  matchId: int("matchId"), // null for global leaderboard
-  
-  // Rankings
-  rank: int("rank").notNull(),
-  points: int("points").default(0).notNull(),
-  
-  // Period
-  period: mysqlEnum("period", ["overall", "weekly", "match"]).default("overall").notNull(),
-  
-  // Timestamps
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
-  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
-}, (table) => ({
-  userIdx: index("user_idx").on(table.userId),
-  matchIdx: index("match_idx").on(table.matchId),
-  rankIdx: index("rank_idx").on(table.rank),
-  periodIdx: index("period_idx").on(table.period),
-}));
+
 
 // Blog posts
 export const blogPosts = mysqlTable("blogPosts", {

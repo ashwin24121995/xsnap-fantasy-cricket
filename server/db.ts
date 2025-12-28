@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { eq, desc } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser, users } from "../drizzle/schema";
 
@@ -60,3 +60,249 @@ export async function updateUserLastSignedIn(userId: number) {
 }
 
 // TODO: Add feature queries here as your schema grows.
+
+// ============================================
+// MATCHES PROCEDURES
+// ============================================
+
+export async function syncMatches(matchesData: any[]) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const { matches } = await import("../drizzle/schema");
+  
+  for (const match of matchesData) {
+    await db.insert(matches).values({
+      apiMatchId: match.id,
+      name: match.name,
+      matchType: match.matchType,
+      status: match.status,
+      venue: match.venue,
+      matchDate: new Date(match.dateTimeGMT),
+      teams: JSON.stringify(match.teams),
+      seriesId: match.series_id,
+      fantasyEnabled: match.fantasyEnabled,
+      score: match.score ? JSON.stringify(match.score) : null,
+    }).onDuplicateKeyUpdate({
+      set: {
+        status: match.status,
+        score: match.score ? JSON.stringify(match.score) : null,
+      }
+    });
+  }
+}
+
+export async function getUpcomingMatches() {
+  const db = await getDb();
+  if (!db) return [];
+
+  const { matches } = await import("../drizzle/schema");
+  
+  const result = await db
+    .select()
+    .from(matches)
+    .where(eq(matches.fantasyEnabled, true))
+    .orderBy(matches.matchDate)
+    .limit(20);
+  
+  return result;
+}
+
+export async function getMatchById(matchId: number) {
+  const db = await getDb();
+  if (!db) return null;
+
+  const { matches } = await import("../drizzle/schema");
+  
+  const result = await db
+    .select()
+    .from(matches)
+    .where(eq(matches.id, matchId))
+    .limit(1);
+  
+  return result.length > 0 ? result[0] : null;
+}
+
+// ============================================
+// PLAYERS PROCEDURES
+// ============================================
+
+export async function syncPlayers(playersData: any[]) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const { players } = await import("../drizzle/schema");
+  
+  for (const player of playersData) {
+    await db.insert(players).values({
+      apiPlayerId: player.id,
+      name: player.name,
+      country: player.country,
+      role: player.role || 'All-rounder',
+      credits: player.credits || 9.0,
+    }).onDuplicateKeyUpdate({
+      set: {
+        name: player.name,
+        country: player.country,
+      }
+    });
+  }
+}
+
+export async function getPlayersByMatch(matchId: number) {
+  const db = await getDb();
+  if (!db) return [];
+
+  const { players } = await import("../drizzle/schema");
+  
+  // For now, return all players. In production, filter by match teams
+  const result = await db
+    .select()
+    .from(players)
+    .limit(100);
+  
+  return result;
+}
+
+export async function getPlayerById(playerId: number) {
+  const db = await getDb();
+  if (!db) return null;
+
+  const { players } = await import("../drizzle/schema");
+  
+  const result = await db
+    .select()
+    .from(players)
+    .where(eq(players.id, playerId))
+    .limit(1);
+  
+  return result.length > 0 ? result[0] : null;
+}
+
+// ============================================
+// TEAMS PROCEDURES
+// ============================================
+
+export async function createTeam(teamData: {
+  userId: number;
+  matchId: number;
+  teamName: string;
+  captainId: number;
+  viceCaptainId: number;
+}) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const { teams } = await import("../drizzle/schema");
+  
+  const result = await db.insert(teams).values({
+    userId: teamData.userId,
+    matchId: teamData.matchId,
+    teamName: teamData.teamName,
+    captainId: teamData.captainId,
+    viceCaptainId: teamData.viceCaptainId,
+    totalPoints: 0,
+  });
+  
+  return Number(result[0].insertId);
+}
+
+export async function addPlayerToTeam(teamId: number, playerId: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const { teamPlayers } = await import("../drizzle/schema");
+  
+  await db.insert(teamPlayers).values({
+    teamId,
+    playerId,
+  });
+}
+
+export async function getUserTeams(userId: number) {
+  const db = await getDb();
+  if (!db) return [];
+
+  const { teams } = await import("../drizzle/schema");
+  
+  const result = await db
+    .select()
+    .from(teams)
+    .where(eq(teams.userId, userId))
+    .orderBy(desc(teams.createdAt));
+  
+  return result;
+}
+
+export async function getTeamById(teamId: number) {
+  const db = await getDb();
+  if (!db) return null;
+
+  const { teams } = await import("../drizzle/schema");
+  
+  const result = await db
+    .select()
+    .from(teams)
+    .where(eq(teams.id, teamId))
+    .limit(1);
+  
+  return result.length > 0 ? result[0] : null;
+}
+
+export async function getTeamPlayers(teamId: number) {
+  const db = await getDb();
+  if (!db) return [];
+
+  const { teamPlayers, players } = await import("../drizzle/schema");
+  
+  const result = await db
+    .select({
+      player: players,
+      teamPlayer: teamPlayers,
+    })
+    .from(teamPlayers)
+    .innerJoin(players, eq(teamPlayers.playerId, players.id))
+    .where(eq(teamPlayers.teamId, teamId));
+  
+  return result.map(r => r.player);
+}
+
+// ============================================
+// LEADERBOARD PROCEDURES
+// ============================================
+
+export async function getLeaderboardByMatch(matchId: number, limit: number = 100) {
+  const db = await getDb();
+  if (!db) return [];
+
+  const { teams, users } = await import("../drizzle/schema");
+  
+  // Get teams for this match, ordered by points
+  const result = await db
+    .select({
+      team: teams,
+      user: users,
+    })
+    .from(teams)
+    .innerJoin(users, eq(teams.userId, users.id))
+    .where(eq(teams.matchId, matchId))
+    .orderBy(desc(teams.totalPoints))
+    .limit(limit);
+  
+  return result;
+}
+
+export async function getGlobalLeaderboard(limit: number = 100) {
+  const db = await getDb();
+  if (!db) return [];
+
+  const { users } = await import("../drizzle/schema");
+  
+  const result = await db
+    .select()
+    .from(users)
+    .orderBy(desc(users.totalPoints))
+    .limit(limit);
+  
+  return result;
+}

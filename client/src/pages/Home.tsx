@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
+import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
+import { trpc } from "@/lib/trpc";
+import { format } from "date-fns";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Link } from "wouter";
 import { 
   Trophy, 
   Users, 
@@ -32,6 +35,95 @@ const heroImages = [
   "/hero-cricket-3.webp",
   "/hero-cricket-4.webp"
 ];
+
+function UpcomingMatchesSection() {
+  const { data: matches, isLoading } = trpc.matches.getUpcoming.useQuery();
+
+  if (isLoading) {
+    return (
+      <section className="py-20 bg-gradient-to-br from-primary/5 to-white">
+        <div className="container">
+          <div className="text-center mb-16">
+            <Badge className="mb-4 animate-pulse">Live Updates</Badge>
+            <h2 className="text-4xl font-bold mb-4">Upcoming Cricket Matches</h2>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            {[1, 2].map((i) => (
+              <Card key={i} className="p-6 animate-pulse">
+                <div className="h-32 bg-muted rounded"></div>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (!matches || matches.length === 0) {
+    return (
+      <section className="py-20 bg-gradient-to-br from-primary/5 to-white">
+        <div className="container">
+          <div className="text-center mb-16">
+            <Badge className="mb-4">Live Updates</Badge>
+            <h2 className="text-4xl font-bold mb-4">Upcoming Cricket Matches</h2>
+          </div>
+          <Card className="p-12 text-center border-2 border-dashed">
+            <div className="max-w-md mx-auto">
+              <Clock className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
+              <h3 className="text-2xl font-bold mb-4">No Matches Available</h3>
+              <p className="text-muted-foreground">
+                Check back soon for upcoming cricket matches!
+              </p>
+            </div>
+          </Card>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section className="py-20 bg-gradient-to-br from-primary/5 to-white">
+      <div className="container">
+        <div className="text-center mb-16">
+          <Badge className="mb-4 animate-pulse">Live Updates</Badge>
+          <h2 className="text-4xl font-bold mb-4">Upcoming Cricket Matches</h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Create your fantasy team for these exciting upcoming matches
+          </p>
+        </div>
+        <div className="grid md:grid-cols-2 gap-6">
+          {matches.slice(0, 4).map((match) => {
+            const teams = JSON.parse(match.teams as string) as string[];
+            const matchDate = new Date(match.matchDate);
+            return (
+              <Card key={match.id} className="p-6 hover:shadow-xl transition-shadow">
+                <div className="flex items-center justify-between mb-4">
+                  <Badge>{match.matchType.toUpperCase()}</Badge>
+                  <Badge variant="outline">{match.status}</Badge>
+                </div>
+                <h3 className="text-xl font-bold mb-2">{match.name}</h3>
+                <p className="text-sm text-muted-foreground mb-4">{match.venue}</p>
+                <p className="text-sm text-muted-foreground mb-4">
+                  {format(matchDate, 'PPp')}
+                </p>
+                <Link href={`/team-builder/${match.id}`}>
+                  <Button className="w-full">Create Team</Button>
+                </Link>
+              </Card>
+            );
+          })}
+        </div>
+        <div className="text-center mt-8">
+          <Link href="/matches">
+            <Button variant="outline" size="lg">
+              View All Matches
+            </Button>
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export default function Home() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -251,44 +343,7 @@ export default function Home() {
       </section>
 
       {/* Live Match Updates Section */}
-      <section className="py-20 bg-gradient-to-br from-primary/5 to-white">
-        <div className="container">
-          <div className="text-center mb-16">
-            <Badge className="mb-4 animate-pulse">Live Updates</Badge>
-            <h2 className="text-4xl font-bold mb-4">Upcoming Cricket Matches</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Create your fantasy team for these exciting upcoming matches
-            </p>
-          </div>
-
-          {/* API Integration Placeholder */}
-          <Card className="p-12 text-center border-2 border-dashed">
-            <div className="max-w-md mx-auto">
-              <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
-                <Clock className="h-10 w-10 text-primary animate-pulse" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4">Match Data Coming Soon</h3>
-              <p className="text-muted-foreground mb-6">
-                Connect your cricket API to display live match schedules, team lineups, and real-time updates here.
-              </p>
-              <div className="flex flex-wrap gap-3 justify-center">
-                <Badge variant="outline" className="px-4 py-2">
-                  <Zap className="mr-2 h-4 w-4" />
-                  Real-time Updates
-                </Badge>
-                <Badge variant="outline" className="px-4 py-2">
-                  <Trophy className="mr-2 h-4 w-4" />
-                  All Formats
-                </Badge>
-                <Badge variant="outline" className="px-4 py-2">
-                  <Target className="mr-2 h-4 w-4" />
-                  Live Scores
-                </Badge>
-              </div>
-            </div>
-          </Card>
-        </div>
-      </section>
+      <UpcomingMatchesSection />
 
       {/* Player Spotlight Section */}
       <section className="py-20 bg-white">
