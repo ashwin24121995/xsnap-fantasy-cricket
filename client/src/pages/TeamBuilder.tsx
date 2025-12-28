@@ -13,18 +13,24 @@ import { toast } from "sonner";
 import { Star, Shield, Trophy, AlertCircle } from "lucide-react";
 
 export default function TeamBuilder() {
-  const params = useParams();
   const [, setLocation] = useLocation();
-  const matchId = parseInt(params.matchId || '0');
+  // Get matchId from URL query params (e.g., /team-builder?matchId=abc-123)
+  const searchParams = new URLSearchParams(window.location.search);
+  const matchApiId = searchParams.get('matchId') || '';
 
   const [selectedPlayers, setSelectedPlayers] = useState<any[]>([]);
-  const [captainId, setCaptainId] = useState<number | null>(null);
-  const [viceCaptainId, setViceCaptainId] = useState<number | null>(null);
+  const [captainId, setCaptainId] = useState<string | null>(null);
+  const [viceCaptainId, setViceCaptainId] = useState<string | null>(null);
   const [teamName, setTeamName] = useState('');
   const [showSaveDialog, setShowSaveDialog] = useState(false);
 
-  const { data: match } = trpc.matches.getById.useQuery({ matchId });
-  const { data: players, isLoading } = trpc.players.getByMatch.useQuery({ matchId });
+  // Get match details and players from Cricket API
+  const { data: matches } = trpc.matches.getUpcoming.useQuery();
+  const match = matches?.find(m => m.id === matchApiId);
+  const { data: players, isLoading } = trpc.players.getByMatch.useQuery(
+    { matchApiId },
+    { enabled: !!matchApiId }
+  );
   const createTeamMutation = trpc.teams.create.useMutation();
 
   const usedCredits = selectedPlayers.reduce((sum, p) => sum + parseFloat(p.credits), 0);

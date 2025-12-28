@@ -4,7 +4,8 @@
  */
 
 const CRICKET_API_BASE_URL = 'https://api.cricapi.com/v1';
-const CRICKET_API_KEY = process.env.CRICKET_API_KEY || 'YOUR_API_KEY_HERE';
+// Paid API Key - CricketData U (expires Jan 18, 2026)
+const CRICKET_API_KEY = process.env.CRICKET_API_KEY || '1a822521-d7e0-46ff-98d3-3e51020863f3';
 
 interface CricketApiResponse<T> {
   apikey: string;
@@ -165,4 +166,172 @@ export async function searchSeries(searchTerm: string): Promise<Series[]> {
     console.error('Error searching series:', error);
     return [];
   }
+}
+
+
+/**
+ * Fantasy Cricket APIs (Paid Subscription Required)
+ */
+
+export interface FantasyPlayer {
+  id: string;
+  name: string;
+  role: 'wk' | 'bat' | 'all' | 'bowl';
+  credits: number;
+  battingStyle?: string;
+  bowlingStyle?: string;
+  team: string;
+  imageUrl?: string;
+}
+
+export interface FantasySquad {
+  matchId: string;
+  players: FantasyPlayer[];
+  teams: {
+    name: string;
+    players: FantasyPlayer[];
+  }[];
+}
+
+export interface FantasyMatchPoints {
+  matchId: string;
+  players: Array<{
+    id: string;
+    name: string;
+    points: number;
+    batting: {
+      runs: number;
+      balls: number;
+      fours: number;
+      sixes: number;
+    };
+    bowling: {
+      wickets: number;
+      overs: number;
+      maidens: number;
+      runs: number;
+    };
+    fielding: {
+      catches: number;
+      stumpings: number;
+      runOuts: number;
+    };
+  }>;
+}
+
+/**
+ * Get fantasy squad for a match
+ * Returns players with roles, credits, and team info
+ */
+export async function getFantasySquad(matchId: string): Promise<FantasySquad | null> {
+  try {
+    const response = await fetchCricketApi<any>('fantasy_squad', { id: matchId });
+    if (response.status === 'success' && response.data) {
+      return {
+        matchId,
+        players: response.data.players || [],
+        teams: response.data.teams || []
+      };
+    }
+    return null;
+  } catch (error) {
+    console.error('Error fetching fantasy squad:', error);
+    return null;
+  }
+}
+
+/**
+ * Get fantasy match points
+ * Returns fantasy points for each player after match completion
+ */
+export async function getFantasyMatchPoints(matchId: string, ruleset: number = 0): Promise<FantasyMatchPoints | null> {
+  try {
+    const response = await fetchCricketApi<any>('match_points', { 
+      id: matchId,
+      ruleset: ruleset.toString()
+    });
+    if (response.status === 'success' && response.data) {
+      return {
+        matchId,
+        players: response.data.players || []
+      };
+    }
+    return null;
+  } catch (error) {
+    console.error('Error fetching fantasy match points:', error);
+    return null;
+  }
+}
+
+/**
+ * Get series squads
+ * Returns all players in a series
+ */
+export async function getSeriesSquads(seriesId: string): Promise<FantasyPlayer[]> {
+  try {
+    const response = await fetchCricketApi<any>('series_squad', { id: seriesId });
+    return response.status === 'success' && response.data ? response.data.players || [] : [];
+  } catch (error) {
+    console.error('Error fetching series squads:', error);
+    return [];
+  }
+}
+
+/**
+ * Filter upcoming matches (today + future only)
+ * Excludes completed matches
+ */
+export function filterUpcomingMatches(matches: Match[]): Match[] {
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  
+  return matches.filter(match => {
+    // Only show fantasy-enabled matches
+    if (!match.fantasyEnabled) return false;
+    
+    // Check if match has ended
+    if (match.status && (
+      match.status.includes('won by') ||
+      match.status.includes('Match tied') ||
+      match.status.includes('No result')
+    )) {
+      return false;
+    }
+    
+    // Check if match date is today or future
+    const matchDate = new Date(match.date);
+    return matchDate >= today;
+  });
+}
+
+/**
+ * Filter live matches
+ * Returns only matches that are currently in progress
+ */
+export function filterLiveMatches(matches: Match[]): Match[] {
+  return matches.filter(match => {
+    if (!match.fantasyEnabled) return false;
+    
+    // Check if match is live (has score but not completed)
+    const isLive = match.score && match.score.length > 0 && 
+                   !match.status.includes('won by') &&
+                   !match.status.includes('Match tied') &&
+                   !match.status.includes('No result');
+    
+    return isLive;
+  });
+}
+
+/**
+ * Check if match has started
+ * Used to prevent team creation after match begins
+ */
+export function hasMatchStarted(match: Match): boolean {
+  // If match has score data, it has started
+  if (match.score && match.score.length > 0) return true;
+  
+  // Check if match time has passed
+  const matchTime = new Date(match.dateTimeGMT);
+  const now = new Date();
+  return now >= matchTime;
 }

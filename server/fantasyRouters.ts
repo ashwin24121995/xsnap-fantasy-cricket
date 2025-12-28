@@ -13,16 +13,27 @@ import * as cricketApi from "./_core/cricketApi";
 // ============================================
 
 export const matchesRouter = router({
-  // Get upcoming matches
+  // Get upcoming matches (today + future only, no completed)
   getUpcoming: publicProcedure.query(async () => {
-    // First, sync latest matches from Cricket API
+    // Get latest matches from Cricket API
     const apiMatches = await cricketApi.getCurrentMatches();
-    if (apiMatches.length > 0) {
-      await db.syncMatches(apiMatches);
+    
+    // Filter to show only upcoming matches (today + future, fantasy-enabled)
+    const upcomingMatches = cricketApi.filterUpcomingMatches(apiMatches);
+    
+    // Sync to database
+    if (upcomingMatches.length > 0) {
+      await db.syncMatches(upcomingMatches);
     }
     
-    // Return matches from database
-    return await db.getUpcomingMatches();
+    return upcomingMatches;
+  }),
+
+  // Get live matches (currently in progress)
+  getLive: publicProcedure.query(async () => {
+    const apiMatches = await cricketApi.getCurrentMatches();
+    const liveMatches = cricketApi.filterLiveMatches(apiMatches);
+    return liveMatches;
   }),
 
   // Get match by ID
@@ -30,6 +41,15 @@ export const matchesRouter = router({
     .input(z.object({ matchId: z.number() }))
     .query(async ({ input }) => {
       return await db.getMatchById(input.matchId);
+    }),
+
+  // Get fantasy match points (for completed matches)
+  getMatchPoints: publicProcedure
+    .input(z.object({ matchApiId: z.string() }))
+    .query(async ({ input }) => {
+      // Get fantasy points from Cricket API
+      const matchPoints = await cricketApi.getFantasyMatchPoints(input.matchApiId);
+      return matchPoints;
     }),
 
   // Sync matches from API (admin only)
@@ -45,11 +65,13 @@ export const matchesRouter = router({
 // ============================================
 
 export const playersRouter = router({
-  // Get players for a match
+  // Get players for a match from Fantasy Squad API (real-time)
   getByMatch: publicProcedure
-    .input(z.object({ matchId: z.number() }))
+    .input(z.object({ matchApiId: z.string() }))
     .query(async ({ input }) => {
-      return await db.getPlayersByMatch(input.matchId);
+      // Get real-time fantasy squad from Cricket API
+      const fantasySquad = await cricketApi.getFantasySquad(input.matchApiId);
+      return fantasySquad;
     }),
 
   // Get player by ID

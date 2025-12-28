@@ -38,7 +38,14 @@ const heroImages = [
 
 function UpcomingMatchesSection() {
   const [, navigate] = useLocation();
-  const { data: matches, isLoading } = trpc.matches.getUpcoming.useQuery();
+  // Get real-time upcoming matches from Cricket API (auto-refresh every 5 min)
+  const { data: matches, isLoading } = trpc.matches.getUpcoming.useQuery(
+    undefined,
+    {
+      refetchInterval: 5 * 60 * 1000,
+      refetchOnWindowFocus: true,
+    }
+  );
 
   if (isLoading) {
     return (
@@ -94,23 +101,44 @@ function UpcomingMatchesSection() {
         </div>
         <div className="grid md:grid-cols-2 gap-6">
           {matches.slice(0, 4).map((match) => {
-            const teams = JSON.parse(match.teams as string) as string[];
-            const matchDate = new Date(match.matchDate);
+            const teams = match.teams || [];
+            const teamInfo = match.teamInfo || [];
+            const matchDate = new Date(match.dateTimeGMT);
             return (
-              <Card key={match.id} className="p-6 hover:shadow-xl transition-shadow">
+              <Card key={match.id} className="p-6 hover:shadow-xl transition-shadow cursor-pointer" onClick={() => navigate(`/team-builder?matchId=${match.id}`)}>
                 <div className="flex items-center justify-between mb-4">
-                  <Badge>{match.matchType.toUpperCase()}</Badge>
-                  <Badge variant="outline">{match.status}</Badge>
+                  <Badge variant="secondary">{match.matchType.toUpperCase()}</Badge>
+                  {match.fantasyEnabled && (
+                    <Badge className="bg-gold text-black">Fantasy</Badge>
+                  )}
                 </div>
-                <h3 className="text-xl font-bold mb-2">{match.name}</h3>
-                <p className="text-sm text-muted-foreground mb-4">{match.venue}</p>
-                <p className="text-sm text-muted-foreground mb-4">
-                  {format(matchDate, 'PPp')}
-                </p>
-                <Button 
-                  className="w-full" 
-                  onClick={() => navigate(`/team-builder/${match.id}`)}
-                >
+                <h3 className="text-lg font-bold mb-3">{match.name}</h3>
+                
+                {/* Teams */}
+                <div className="flex items-center justify-center space-x-4 mb-4">
+                  {teamInfo.length >= 2 ? (
+                    <>
+                      <span className="font-semibold text-sm">{teamInfo[0].shortname || teams[0]}</span>
+                      <span className="text-muted-foreground">vs</span>
+                      <span className="font-semibold text-sm">{teamInfo[1].shortname || teams[1]}</span>
+                    </>
+                  ) : (
+                    <span className="font-semibold text-sm">{teams.join(' vs ')}</span>
+                  )}
+                </div>
+                
+                <div className="space-y-2 text-sm text-muted-foreground">
+                  <div className="flex items-center">
+                    <MapPin className="w-4 h-4 mr-2" />
+                    <span>{match.venue}</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Calendar className="w-4 h-4 mr-2" />
+                    <span>{format(matchDate, 'MMM dd, yyyy • hh:mm a')}</span>
+                  </div>
+                </div>
+                
+                <Button className="w-full mt-4 glossy-button">
                   Create Team
                 </Button>
               </Card>
