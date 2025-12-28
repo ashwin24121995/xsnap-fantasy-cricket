@@ -6,10 +6,10 @@ import { Badge } from "@/components/ui/badge";
 import { Trophy, Users, TrendingUp, Plus, Star, Shield } from "lucide-react";
 import { Link } from "wouter";
 import { trpc } from "@/lib/trpc";
-import { useAuth } from "@/contexts/AuthContext";
+// Auth check via tRPC
 
 export default function Dashboard() {
-  const { user } = useAuth();
+  const { data: user } = trpc.auth.me.useQuery();
   const { data: teams, isLoading } = trpc.teams.getMyTeams.useQuery(undefined, {
     enabled: !!user,
   });
