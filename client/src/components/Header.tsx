@@ -26,7 +26,7 @@ export function Header() {
           <img
             src="/logo.png"
             alt="XSNAP Fantasy Cricket"
-            className="h-10 w-auto"
+            className="h-10 w-auto" style={{height: '76px'}}
           />
         </Link>
 
