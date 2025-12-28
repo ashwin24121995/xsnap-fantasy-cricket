@@ -9,45 +9,21 @@ import {
   Users, 
   Shield, 
   Sparkles, 
-  TrendingUp,
   Target,
   Award,
-  Zap,
   CheckCircle2,
-  ArrowRight
+  ArrowRight,
+  GraduationCap,
+  Heart,
+  Zap
 } from "lucide-react";
-import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [count, setCount] = useState({ users: 0, teams: 0, matches: 0 });
-
-  // Animated counter effect
-  useEffect(() => {
-    const duration = 2000;
-    const steps = 60;
-    const interval = duration / steps;
-    
-    let step = 0;
-    const timer = setInterval(() => {
-      step++;
-      const progress = step / steps;
-      setCount({
-        users: Math.floor(10000 * progress),
-        teams: Math.floor(50000 * progress),
-        matches: Math.floor(500 * progress)
-      });
-      
-      if (step >= steps) clearInterval(timer);
-    }, interval);
-
-    return () => clearInterval(timer);
-  }, []);
-
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Header />
       
-      {/* Hero Section - Unique Diagonal Split Design */}
+      {/* Hero Section - Authentic Design */}
       <section className="relative overflow-hidden min-h-[90vh] flex items-center">
         {/* Animated Background Gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/90 to-blue-900 animate-gradient-shift" />
@@ -114,65 +90,42 @@ export default function Home() {
                 </Link>
               </div>
 
-              {/* Stats Counter */}
+              {/* Key Features - No Fake Numbers */}
               <div className="grid grid-cols-3 gap-6 pt-8">
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-accent">{count.users.toLocaleString()}+</div>
-                  <div className="text-sm text-white/70">Active Users</div>
+                  <div className="text-3xl font-bold text-accent mb-1">
+                    <GraduationCap className="h-8 w-8 mx-auto" />
+                  </div>
+                  <div className="text-sm text-white/70">Learn Strategy</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-accent">{count.teams.toLocaleString()}+</div>
-                  <div className="text-sm text-white/70">Teams Created</div>
+                  <div className="text-3xl font-bold text-accent mb-1">
+                    <Heart className="h-8 w-8 mx-auto" />
+                  </div>
+                  <div className="text-sm text-white/70">No Pressure</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-accent">{count.matches}+</div>
-                  <div className="text-sm text-white/70">Matches</div>
+                  <div className="text-3xl font-bold text-accent mb-1">
+                    <Zap className="h-8 w-8 mx-auto" />
+                  </div>
+                  <div className="text-sm text-white/70">Pure Fun</div>
                 </div>
               </div>
             </div>
 
-            {/* Right Content - Floating Cards */}
+            {/* Right Content - Hero Image Only */}
             <div className="relative h-[600px] hidden lg:block">
-              {/* Main Hero Image with 3D Transform */}
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="relative w-full h-full perspective-1000">
+                <div className="relative w-full h-full">
                   <img
                     src="/assets/hero_homepage.png"
-                    alt="Fantasy Cricket"
+                    alt="Fantasy Cricket - Build Your Dream Team"
                     className="w-full h-full object-contain rounded-3xl shadow-2xl transform hover:scale-105 transition-transform duration-500"
                   />
                   
-                  {/* Floating Player Card 1 */}
-                  <Card className="absolute top-10 -left-10 p-4 bg-white/95 backdrop-blur-md shadow-xl hover-lift animate-float w-48">
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                        <Trophy className="h-6 w-6 text-primary" />
-                      </div>
-                      <div>
-                        <div className="text-xs text-muted-foreground">Top Scorer</div>
-                        <div className="font-bold">V. Kohli</div>
-                        <div className="text-sm text-primary">850 pts</div>
-                      </div>
-                    </div>
-                  </Card>
-
-                  {/* Floating Player Card 2 */}
-                  <Card className="absolute bottom-20 -right-10 p-4 bg-white/95 backdrop-blur-md shadow-xl hover-lift animate-float-delayed w-48">
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
-                        <Zap className="h-6 w-6 text-accent" />
-                      </div>
-                      <div>
-                        <div className="text-xs text-muted-foreground">Best Bowler</div>
-                        <div className="font-bold">J. Bumrah</div>
-                        <div className="text-sm text-accent">780 pts</div>
-                      </div>
-                    </div>
-                  </Card>
-
-                  {/* Floating Stats Badge */}
-                  <div className="absolute top-1/2 -right-5 transform -translate-y-1/2">
-                    <div className="bg-gradient-to-br from-accent to-yellow-500 text-primary p-6 rounded-2xl shadow-2xl animate-pulse-slow">
+                  {/* 18+ Badge - Real Compliance Requirement */}
+                  <div className="absolute top-10 right-10">
+                    <div className="bg-gradient-to-br from-accent to-yellow-500 text-primary p-6 rounded-2xl shadow-2xl">
                       <div className="text-4xl font-bold">18+</div>
                       <div className="text-xs font-medium mt-1">Age Verified</div>
                     </div>
@@ -352,8 +305,8 @@ export default function Home() {
             Ready to Start Your Journey?
           </h2>
           <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Join thousands of cricket fans learning and competing on India's premier 
-            free-to-play fantasy cricket platform.
+            Join India's premier free-to-play fantasy cricket platform. 
+            Learn cricket strategy and compete without any financial pressure.
           </p>
           <Link href="/register">
             <Button size="lg" className="bg-accent hover:bg-accent/90 text-primary font-bold px-12 py-6 text-lg">
