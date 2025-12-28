@@ -2,18 +2,21 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
+import LanguageSwitcher from "./LanguageSwitcher";
+import { useTranslation } from "react-i18next";
 
 export function Header() {
+  const { t } = useTranslation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [location] = useLocation();
 
   const navigation = [
-    { name: "Home", href: "/" },
-    { name: "How To Play", href: "/how-to-play" },
-    { name: "About Us", href: "/about" },
-    { name: "FAQ", href: "/faq" },
-    { name: "Blog", href: "/blog" },
-    { name: "Contact", href: "/contact" },
+    { name: t("header.home"), href: "/" },
+    { name: t("header.howToPlay"), href: "/how-to-play" },
+    { name: t("header.about"), href: "/about" },
+    { name: t("header.faq"), href: "/faq" },
+    { name: t("header.blog"), href: "/blog" },
+    { name: t("header.contact"), href: "/contact" },
   ];
 
   const isActive = (href: string) => location === href;
@@ -48,12 +51,13 @@ export function Header() {
         </div>
 
         {/* Desktop Auth Buttons */}
-        <div className="hidden md:flex md:items-center md:space-x-3">
+        <div className="hidden md:flex md:items-center md:space-x-4">
+          <LanguageSwitcher />
           <Link href="/login">
-            <Button variant="ghost">Login</Button>
+            <Button variant="ghost">{t("header.login")}</Button>
           </Link>
           <Link href="/register">
-            <Button className="glossy-btn">Get Started</Button>
+            <Button>{t("header.getStarted")}</Button>
           </Link>
         </div>
 

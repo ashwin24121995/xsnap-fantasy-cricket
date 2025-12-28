@@ -1,0 +1,51 @@
+{
+  "header": {
+    "home": "Home",
+    "howToPlay": "How To Play",
+    "about": "About Us",
+    "faq": "FAQ",
+    "blog": "Blog",
+    "contact": "Contact",
+    "login": "Login",
+    "getStarted": "Get Started"
+  },
+  "hero": {
+    "badge": "100% Free To Play • No Real Money",
+    "title1": "Play Fantasy",
+    "title2": "Cricket,",
+    "title3": "Learn & Have Fun!",
+    "subtitle": "India's premier free-to-play fantasy cricket platform. Build your dream team, compete with friends, and master the game of cricket strategy.",
+    "startPlaying": "Start Playing Free",
+    "howItWorks": "How It Works",
+    "ageVerified": "Age Verified",
+    "learnStrategy": "Learn Strategy",
+    "noPressure": "No Pressure",
+    "pureFun": "Pure Fun"
+  },
+  "footer": {
+    "description": "Free-to-play fantasy cricket platform for education and entertainment.",
+    "quickLinks": "Quick Links",
+    "legal": "Legal",
+    "company": "Company",
+    "followUs": "Follow Us",
+    "disclaimer": "Legal Disclaimer: This platform is NOT available in Andhra Pradesh, Assam, Odisha, Telangana, Nagaland, and Sikkim. Only users 18 years and older are permitted. This is a skill-based, free-to-play platform with no real money involved.",
+    "copyright": "© {{year}} XSNAP IMAGING PRIVATE LIMITED. All rights reserved.",
+    "terms": "Terms & Conditions",
+    "privacy": "Privacy Policy",
+    "fairPlay": "Fair Play Policy",
+    "responsibleGaming": "Responsible Gaming"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit",
+    "close": "Close"
+  }
+}
