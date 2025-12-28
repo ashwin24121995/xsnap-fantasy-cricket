@@ -69,7 +69,7 @@ export default function ResponsibleGaming() {
               <h2 className="text-2xl font-semibold mb-4">Support</h2>
               <p className="text-muted-foreground leading-relaxed">
                 If you have concerns about your gaming habits or need support, please contact 
-                us at support@xsnap.in. We're here to help ensure your experience remains positive.
+                us at support@xsnaplive.com. We're here to help ensure your experience remains positive.
               </p>
             </section>
           </Card>

@@ -202,3 +202,9 @@
 - [x] Create GitHub repository
 - [x] Push code to GitHub (https://github.com/ashwin24121995/xsnap-fantasy-cricket)
 - [x] Create Railway deployment guide
+
+## Domain Update
+- [x] Update all references from xsnap.in to xsnaplive.com
+- [x] Update contact email addresses to use @xsnaplive.com (support@xsnaplive.com)
+- [x] Update footer and contact page with correct domain
+- [x] Verify all links and references

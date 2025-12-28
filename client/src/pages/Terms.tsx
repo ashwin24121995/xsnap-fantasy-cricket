@@ -83,7 +83,7 @@ export default function Terms() {
             <section>
               <h2 className="text-2xl font-semibold mb-4">8. Contact Information</h2>
               <p className="text-muted-foreground leading-relaxed">
-                For questions about these Terms & Conditions, please contact us at support@xsnap.in
+                For questions about these Terms & Conditions, please contact us at support@xsnaplive.com
               </p>
             </section>
 

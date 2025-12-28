@@ -66,7 +66,7 @@ export default function FairPlay() {
               <h2 className="text-2xl font-semibold mb-4">Reporting Violations</h2>
               <p className="text-muted-foreground leading-relaxed">
                 If you suspect any user of violating our fair play policy, please report it to 
-                support@xsnap.in with relevant details. All reports are investigated confidentially.
+                support@xsnaplive.com with relevant details. All reports are investigated confidentially.
               </p>
             </section>
           </Card>

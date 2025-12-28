@@ -89,7 +89,7 @@ export default function Privacy() {
             <section>
               <h2 className="text-2xl font-semibold mb-4">9. Contact Us</h2>
               <p className="text-muted-foreground leading-relaxed">
-                For privacy-related questions or to exercise your rights, contact us at support@xsnap.in
+                For privacy-related questions or to exercise your rights, contact us at support@xsnaplive.com
               </p>
             </section>
 
