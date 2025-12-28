@@ -1,4 +1,4 @@
-import { Footer } from "@/components/Footer";
+import { useState, useEffect } from "react";
 import { Header } from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -18,305 +18,335 @@ import {
   Zap
 } from "lucide-react";
 
+const heroImages = [
+  "/hero-cricket-2.jpg",
+  "/hero-cricket-3.jpg",
+  "/hero-cricket-4.jpg"
+];
+
 export default function Home() {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // Auto-rotate images every 5 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="min-h-screen flex flex-col bg-white">
       <Header />
       
-      {/* Hero Section - Authentic Design */}
-      <section className="relative overflow-hidden min-h-[90vh] flex items-center">
-        {/* Animated Background Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/90 to-blue-900 animate-gradient-shift" />
-        
-        {/* Diagonal Overlay with Clip Path */}
-        <div 
-          className="absolute inset-0 bg-gradient-to-tr from-primary/20 via-transparent to-accent/30"
-          style={{
-            clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)'
-          }}
-        />
-
-        {/* Floating Geometric Shapes */}
-        <div className="absolute top-20 left-10 w-32 h-32 bg-accent/20 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-40 right-20 w-48 h-48 bg-primary/30 rounded-full blur-3xl animate-float-delayed" />
-        <div className="absolute top-1/2 left-1/3 w-24 h-24 bg-white/10 rounded-lg rotate-45 animate-spin-slow" />
-
-        <div className="container relative z-10 py-20">
+      {/* Hero Section - Clean White Background with Image Carousel */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-blue-50 py-20">
+        <div className="container relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left Content */}
-            <div className="space-y-8 text-white">
+            <div className="space-y-8">
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
-                <Sparkles className="h-4 w-4 text-accent animate-pulse" />
-                <span className="text-sm font-medium">100% Free To Play • No Real Money</span>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
+                <Sparkles className="h-4 w-4 text-primary animate-pulse" />
+                <span className="text-sm font-medium text-primary">100% Free To Play • No Real Money</span>
               </div>
 
-              {/* Main Heading with Gradient Text */}
+              {/* Heading */}
               <div className="space-y-4">
-                <h1 className="text-5xl lg:text-7xl font-bold leading-tight">
-                  Play Fantasy
-                  <br />
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-yellow-300 to-accent animate-gradient-x">
+                <h1 className="text-5xl lg:text-6xl font-bold leading-tight">
+                  Play Fantasy{" "}
+                  <span className="bg-gradient-to-r from-primary via-blue-600 to-accent bg-clip-text text-transparent">
                     Cricket,
                   </span>
-                </h1>
-                <h2 className="text-4xl lg:text-6xl font-bold">
+                  <br />
                   Learn & Have Fun!
-                </h2>
+                </h1>
+                <p className="text-lg text-muted-foreground max-w-xl">
+                  India's premier free-to-play fantasy cricket platform. Build your dream team, compete with friends, and master the game of cricket strategy.
+                </p>
               </div>
-
-              {/* Description */}
-              <p className="text-lg lg:text-xl text-white/90 leading-relaxed max-w-xl">
-                India's premier free-to-play fantasy cricket platform. Build your dream team, 
-                compete with friends, and master the game of cricket strategy.
-              </p>
 
               {/* CTA Buttons */}
               <div className="flex flex-wrap gap-4">
                 <Link href="/register">
-                  <Button size="lg" className="bg-accent hover:bg-accent/90 text-primary font-bold px-8 py-6 text-lg group">
+                  <Button size="lg" className="glossy-button group">
                     Start Playing Free
                     <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </Link>
                 <Link href="/how-to-play">
-                  <Button 
-                    size="lg" 
-                    variant="outline" 
-                    className="border-2 border-white/30 bg-white/10 backdrop-blur-md hover:bg-white/20 text-white px-8 py-6 text-lg"
-                  >
+                  <Button size="lg" variant="outline" className="border-2">
                     How It Works
                   </Button>
                 </Link>
               </div>
 
-              {/* Key Features - No Fake Numbers */}
-              <div className="grid grid-cols-3 gap-6 pt-8">
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-accent mb-1">
-                    <GraduationCap className="h-8 w-8 mx-auto" />
-                  </div>
-                  <div className="text-sm text-white/70">Learn Strategy</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-accent mb-1">
-                    <Heart className="h-8 w-8 mx-auto" />
-                  </div>
-                  <div className="text-sm text-white/70">No Pressure</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-accent mb-1">
-                    <Zap className="h-8 w-8 mx-auto" />
-                  </div>
-                  <div className="text-sm text-white/70">Pure Fun</div>
-                </div>
+              {/* Feature Pills */}
+              <div className="flex flex-wrap gap-3">
+                <Badge variant="secondary" className="px-4 py-2 text-sm">
+                  <GraduationCap className="mr-2 h-4 w-4" />
+                  Learn Strategy
+                </Badge>
+                <Badge variant="secondary" className="px-4 py-2 text-sm">
+                  <Heart className="mr-2 h-4 w-4" />
+                  No Pressure
+                </Badge>
+                <Badge variant="secondary" className="px-4 py-2 text-sm">
+                  <Zap className="mr-2 h-4 w-4" />
+                  Pure Fun
+                </Badge>
               </div>
             </div>
 
-            {/* Right Content - Hero Image Only */}
-            <div className="relative h-[600px] hidden lg:block">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="relative w-full h-full">
-                  <img
-                    src="/assets/hero_homepage.png"
-                    alt="Fantasy Cricket - Build Your Dream Team"
-                    className="w-full h-full object-contain rounded-3xl shadow-2xl transform hover:scale-105 transition-transform duration-500"
-                  />
-                  
-                  {/* 18+ Badge - Real Compliance Requirement */}
-                  <div className="absolute top-10 right-10">
-                    <div className="bg-gradient-to-br from-accent to-yellow-500 text-primary p-6 rounded-2xl shadow-2xl">
-                      <div className="text-4xl font-bold">18+</div>
-                      <div className="text-xs font-medium mt-1">Age Verified</div>
-                    </div>
+            {/* Right Content - Image Carousel */}
+            <div className="relative">
+              {/* 18+ Badge */}
+              <div className="absolute -top-4 -right-4 z-20">
+                <div className="bg-gradient-to-br from-accent to-yellow-500 rounded-2xl p-4 shadow-2xl transform rotate-3 hover:rotate-0 transition-transform">
+                  <div className="text-center">
+                    <div className="text-4xl font-black text-primary">18+</div>
+                    <div className="text-xs font-semibold text-primary mt-1">Age Verified</div>
                   </div>
                 </div>
               </div>
+
+              {/* Image Carousel Container */}
+              <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl">
+                {/* Images with Fade Transition */}
+                {heroImages.map((image, index) => (
+                  <div
+                    key={image}
+                    className={`absolute inset-0 transition-opacity duration-1000 ${
+                      index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+                    }`}
+                  >
+                    <img
+                      src={image}
+                      alt={`Cricket action ${index + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                ))}
+
+                {/* Gradient Overlay for Better Text Visibility */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+
+                {/* Carousel Indicators */}
+                <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex gap-2 z-10">
+                  {heroImages.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentImageIndex(index)}
+                      className={`w-3 h-3 rounded-full transition-all ${
+                        index === currentImageIndex
+                          ? 'bg-white w-8'
+                          : 'bg-white/50 hover:bg-white/75'
+                      }`}
+                      aria-label={`Go to slide ${index + 1}`}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* Decorative Elements */}
+              <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-primary/10 rounded-full blur-3xl" />
+              <div className="absolute -top-6 -right-6 w-40 h-40 bg-accent/10 rounded-full blur-3xl" />
             </div>
           </div>
-        </div>
-
-        {/* Bottom Wave Divider */}
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1440 120" className="w-full h-auto">
-            <path
-              fill="hsl(var(--background))"
-              d="M0,64L48,69.3C96,75,192,85,288,80C384,75,480,53,576,48C672,43,768,53,864,58.7C960,64,1056,64,1152,58.7C1248,53,1344,43,1392,37.3L1440,32L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z"
-            />
-          </svg>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-muted/30">
+      <section className="py-20 bg-white">
         <div className="container">
           <div className="text-center mb-16">
-            <Badge variant="secondary" className="mb-4">Why Choose XSNAP</Badge>
-            <h2 className="text-4xl font-bold mb-4">Built for Cricket Fans</h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Experience fantasy cricket the right way - free, fair, and focused on learning
+            <Badge className="mb-4">Why Choose XSNAP?</Badge>
+            <h2 className="text-4xl font-bold mb-4">Built for Learning, Designed for Fun</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Experience fantasy cricket without financial pressure. Focus on strategy, skill, and enjoyment.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              {
-                icon: Shield,
-                title: "100% Free",
-                description: "No deposits, no withdrawals. Pure entertainment and education.",
-                color: "text-primary"
-              },
-              {
-                icon: Trophy,
-                title: "Skill-Based",
-                description: "Compete on strategy and cricket knowledge, not luck.",
-                color: "text-accent"
-              },
-              {
-                icon: Users,
-                title: "Safe & Legal",
-                description: "Fully compliant with Indian regulations. 18+ only.",
-                color: "text-green-600"
-              },
-              {
-                icon: Target,
-                title: "Learn & Grow",
-                description: "Master fantasy cricket strategy without financial pressure.",
-                color: "text-purple-600"
-              }
-            ].map((feature, index) => (
-              <Card key={index} className="p-6 hover-lift cursor-pointer group">
-                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br from-${feature.color}/10 to-${feature.color}/5 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                  <feature.icon className={`h-7 w-7 ${feature.color}`} />
-                </div>
-                <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                <p className="text-muted-foreground">{feature.description}</p>
-              </Card>
-            ))}
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Feature 1 */}
+            <Card className="p-8 hover:shadow-xl transition-shadow border-2">
+              <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
+                <Trophy className="h-7 w-7 text-primary" />
+              </div>
+              <h3 className="text-xl font-bold mb-3">100% Free to Play</h3>
+              <p className="text-muted-foreground">
+                No real money involved. Play for fun, learn strategies, and compete on leaderboards without any financial risk.
+              </p>
+            </Card>
+
+            {/* Feature 2 */}
+            <Card className="p-8 hover:shadow-xl transition-shadow border-2">
+              <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
+                <Users className="h-7 w-7 text-primary" />
+              </div>
+              <h3 className="text-xl font-bold mb-3">Build Your Dream Team</h3>
+              <p className="text-muted-foreground">
+                Select players, manage budgets, and create winning combinations. Master the art of team building and strategy.
+              </p>
+            </Card>
+
+            {/* Feature 3 */}
+            <Card className="p-8 hover:shadow-xl transition-shadow border-2">
+              <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
+                <Shield className="h-7 w-7 text-primary" />
+              </div>
+              <h3 className="text-xl font-bold mb-3">Safe & Compliant</h3>
+              <p className="text-muted-foreground">
+                Age-verified platform (18+) with state compliance. Fair play guaranteed with transparent rules and policies.
+              </p>
+            </Card>
           </div>
         </div>
       </section>
 
       {/* How It Works Section */}
-      <section className="py-20">
+      <section className="py-20 bg-gradient-to-br from-blue-50 to-white">
         <div className="container">
           <div className="text-center mb-16">
-            <Badge variant="secondary" className="mb-4">Simple Process</Badge>
+            <Badge className="mb-4">Simple Process</Badge>
             <h2 className="text-4xl font-bold mb-4">How It Works</h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Get started in minutes and start building winning teams
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Get started in minutes and begin your fantasy cricket journey
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {[
-              {
-                step: "01",
-                icon: Users,
-                title: "Create Account",
-                description: "Sign up for free with just your email. Age and state verification included."
-              },
-              {
-                step: "02",
-                icon: Target,
-                title: "Build Your Team",
-                description: "Select 11 players within budget. Choose your captain and vice-captain wisely."
-              },
-              {
-                step: "03",
-                icon: Award,
-                title: "Compete & Win",
-                description: "Earn points based on real match performance. Climb the leaderboard!"
-              }
-            ].map((step, index) => (
-              <div key={index} className="relative">
-                <Card className="p-8 hover-lift h-full">
-                  <div className="text-6xl font-bold text-primary/10 mb-4">{step.step}</div>
-                  <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-4">
-                    <step.icon className="h-7 w-7 text-primary" />
-                  </div>
-                  <h3 className="text-2xl font-semibold mb-3">{step.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">{step.description}</p>
-                </Card>
-                {index < 2 && (
-                  <div className="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2 z-10">
-                    <ArrowRight className="h-8 w-8 text-primary/30" />
-                  </div>
-                )}
+          <div className="grid md:grid-cols-4 gap-8">
+            {/* Step 1 */}
+            <div className="text-center">
+              <div className="w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+                1
               </div>
-            ))}
+              <h3 className="text-lg font-bold mb-2">Register Free</h3>
+              <p className="text-sm text-muted-foreground">
+                Create your account in seconds with email verification
+              </p>
+            </div>
+
+            {/* Step 2 */}
+            <div className="text-center">
+              <div className="w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+                2
+              </div>
+              <h3 className="text-lg font-bold mb-2">Select Match</h3>
+              <p className="text-sm text-muted-foreground">
+                Choose from upcoming cricket matches to join
+              </p>
+            </div>
+
+            {/* Step 3 */}
+            <div className="text-center">
+              <div className="w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+                3
+              </div>
+              <h3 className="text-lg font-bold mb-2">Build Team</h3>
+              <p className="text-sm text-muted-foreground">
+                Pick 11 players within budget and formation rules
+              </p>
+            </div>
+
+            {/* Step 4 */}
+            <div className="text-center">
+              <div className="w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+                4
+              </div>
+              <h3 className="text-lg font-bold mb-2">Compete & Learn</h3>
+              <p className="text-sm text-muted-foreground">
+                Watch your team perform and climb the leaderboard
+              </p>
+            </div>
           </div>
 
           <div className="text-center mt-12">
-            <Link href="/how-to-play">
-              <Button size="lg" variant="outline" className="group">
-                Learn More About Scoring
-                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+            <Link href="/register">
+              <Button size="lg" className="glossy-button">
+                Get Started Now
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Compliance Badges Section */}
-      <section className="py-16 bg-muted/50">
-        <div className="container">
-          <div className="flex flex-wrap items-center justify-center gap-8">
-            <div className="flex items-center gap-3">
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
-                <Shield className="h-8 w-8 text-primary" />
-              </div>
-              <div>
-                <div className="font-bold text-lg">Fair Play</div>
-                <div className="text-sm text-muted-foreground">Certified Platform</div>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center">
-                <span className="text-2xl font-bold text-accent">18+</span>
-              </div>
-              <div>
-                <div className="font-bold text-lg">Age Restricted</div>
-                <div className="text-sm text-muted-foreground">Adults Only</div>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <div className="w-16 h-16 rounded-full bg-green-500/10 flex items-center justify-center">
-                <CheckCircle2 className="h-8 w-8 text-green-600" />
-              </div>
-              <div>
-                <div className="font-bold text-lg">Compliant</div>
-                <div className="text-sm text-muted-foreground">Government Approved</div>
-              </div>
-            </div>
+      {/* CTA Section */}
+      <section className="py-20 bg-gradient-to-r from-primary to-blue-700 text-white">
+        <div className="container text-center">
+          <h2 className="text-4xl font-bold mb-6">Ready to Master Fantasy Cricket?</h2>
+          <p className="text-xl mb-8 text-blue-100 max-w-2xl mx-auto">
+            Join thousands of players learning cricket strategy through our free-to-play platform
+          </p>
+          <div className="flex flex-wrap gap-4 justify-center">
+            <Link href="/register">
+              <Button size="lg" variant="secondary" className="glossy-button">
+                Create Free Account
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
+            <Link href="/about">
+              <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-primary">
+                Learn More
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary to-blue-900" />
-        <div className="absolute inset-0 bg-[url('/assets/illustration_how_to_play.png')] opacity-5 bg-cover bg-center" />
-        
-        <div className="container relative z-10 text-center text-white">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-            Ready to Start Your Journey?
-          </h2>
-          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Join India's premier free-to-play fantasy cricket platform. 
-            Learn cricket strategy and compete without any financial pressure.
-          </p>
-          <Link href="/register">
-            <Button size="lg" className="bg-accent hover:bg-accent/90 text-primary font-bold px-12 py-6 text-lg">
-              Get Started Free
-            </Button>
-          </Link>
+      {/* Footer */}
+      <footer className="bg-gray-900 text-gray-300 py-12">
+        <div className="container">
+          <div className="grid md:grid-cols-4 gap-8 mb-8">
+            <div>
+              <img src="/logo.png" alt="XSNAP" className="h-12 mb-4" />
+              <p className="text-sm">
+                India's premier free-to-play fantasy cricket platform for learning and entertainment.
+              </p>
+            </div>
+            <div>
+              <h4 className="font-bold mb-4">Quick Links</h4>
+              <ul className="space-y-2 text-sm">
+                <li><Link href="/about" className="hover:text-white">About Us</Link></li>
+                <li><Link href="/how-to-play" className="hover:text-white">How To Play</Link></li>
+                <li><Link href="/faq" className="hover:text-white">FAQ</Link></li>
+                <li><Link href="/blog" className="hover:text-white">Blog</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-bold mb-4">Legal</h4>
+              <ul className="space-y-2 text-sm">
+                <li><Link href="/terms" className="hover:text-white">Terms & Conditions</Link></li>
+                <li><Link href="/privacy" className="hover:text-white">Privacy Policy</Link></li>
+                <li><Link href="/fair-play" className="hover:text-white">Fair Play</Link></li>
+                <li><Link href="/responsible-gaming" className="hover:text-white">Responsible Gaming</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-bold mb-4">Contact</h4>
+              <ul className="space-y-2 text-sm">
+                <li>Email: support@xsnaplive.com</li>
+                <li><Link href="/contact" className="hover:text-white">Contact Form</Link></li>
+              </ul>
+            </div>
+          </div>
+          <div className="border-t border-gray-800 pt-8">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
+              <p>© 2024 XSNAP IMAGING PRIVATE LIMITED. All rights reserved.</p>
+              <div className="flex items-center gap-4">
+                <Badge variant="secondary">18+</Badge>
+                <Badge variant="secondary">Fair Play</Badge>
+              </div>
+            </div>
+            <p className="text-xs text-gray-500 mt-4 text-center">
+              Legal Disclaimer: This platform is NOT available in Andhra Pradesh, Assam, Odisha, Telangana, Nagaland, and Sikkim. 
+              Only users 18 years and older are permitted. This is a skill-based, free-to-play platform with no real money involved.
+            </p>
+          </div>
         </div>
-      </section>
-
-      <Footer />
+      </footer>
     </div>
   );
 }
