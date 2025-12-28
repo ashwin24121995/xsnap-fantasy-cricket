@@ -329,3 +329,10 @@
 - [x] Update index.html to use PNG favicons
 - [x] Update manifest.json to use PNG icons
 - [x] Deploy fix to production
+
+
+## Phase 30: Fix Nested Anchor Tag Error ✅ COMPLETED
+- [x] Find nested `<a>` tags in Home page (Link wrapping Button)
+- [x] Fix nested anchor tags by using navigate() instead of Link wrapper
+- [x] Test homepage for errors
+- [x] Deploy fix

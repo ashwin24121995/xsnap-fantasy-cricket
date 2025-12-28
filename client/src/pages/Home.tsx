@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
 import { format } from "date-fns";
@@ -37,6 +37,7 @@ const heroImages = [
 ];
 
 function UpcomingMatchesSection() {
+  const [, navigate] = useLocation();
   const { data: matches, isLoading } = trpc.matches.getUpcoming.useQuery();
 
   if (isLoading) {
@@ -106,19 +107,24 @@ function UpcomingMatchesSection() {
                 <p className="text-sm text-muted-foreground mb-4">
                   {format(matchDate, 'PPp')}
                 </p>
-                <Link href={`/team-builder/${match.id}`}>
-                  <Button className="w-full">Create Team</Button>
-                </Link>
+                <Button 
+                  className="w-full" 
+                  onClick={() => navigate(`/team-builder/${match.id}`)}
+                >
+                  Create Team
+                </Button>
               </Card>
             );
           })}
         </div>
         <div className="text-center mt-8">
-          <Link href="/matches">
-            <Button variant="outline" size="lg">
-              View All Matches
-            </Button>
-          </Link>
+          <Button 
+            variant="outline" 
+            size="lg"
+            onClick={() => navigate('/matches')}
+          >
+            View All Matches
+          </Button>
         </div>
       </div>
     </section>
