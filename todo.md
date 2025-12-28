@@ -187,3 +187,7 @@
 - [x] Update HTML head with favicon links
 - [x] Update manifest.json with new icons
 - [x] Test logo display on all pages
+
+## Footer Logo Update
+- [x] Update Footer component to use same XSNAP logo as header
+- [x] Ensure consistent branding across header and footer

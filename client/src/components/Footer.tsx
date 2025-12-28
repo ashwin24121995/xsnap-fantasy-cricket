@@ -10,9 +10,9 @@ export function Footer() {
           {/* Company Info */}
           <div className="space-y-4">
             <img
-              src="/assets/xsnap_logo_horizontal.png"
+              src="/logo.png"
               alt="XSNAP Fantasy Cricket"
-              className="h-10 w-auto"
+              className="h-16 w-auto"
             />
             <p className="text-sm text-muted-foreground">
               Free-to-play fantasy cricket platform for education and entertainment.
