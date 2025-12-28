@@ -27,7 +27,7 @@ export function Header() {
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-3">
           <img
-            src="/logo.png"
+            src="/logo.webp"
             alt="XSNAP Fantasy Cricket"
             className="h-10 w-auto" style={{height: '76px'}}
           />

@@ -60,7 +60,7 @@ export default function Dashboard() {
             <h2 className="text-2xl font-semibold mb-6">My Teams</h2>
             <div className="text-center py-12">
               <img
-                src="/assets/illustration_how_to_play.png"
+                src="/assets/illustration_how_to_play.webp"
                 alt="No teams"
                 className="w-64 h-64 mx-auto mb-6 opacity-50"
               />

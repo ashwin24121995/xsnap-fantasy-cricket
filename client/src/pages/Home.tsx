@@ -28,9 +28,9 @@ import {
 } from "lucide-react";
 
 const heroImages = [
-  "/hero-cricket-2.jpg",
-  "/hero-cricket-3.jpg",
-  "/hero-cricket-4.jpg"
+  "/hero-cricket-2.webp",
+  "/hero-cricket-3.webp",
+  "/hero-cricket-4.webp"
 ];
 
 export default function Home() {
@@ -778,7 +778,7 @@ export default function Home() {
         <div className="container">
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
-              <img src="/logo.png" alt="XSNAP" className="h-12 mb-4" />
+              <img src="/logo.webp" alt="XSNAP" className="h-12 mb-4" />
               <p className="text-sm">
                 India's premier free-to-play fantasy cricket platform for learning and entertainment.
               </p>

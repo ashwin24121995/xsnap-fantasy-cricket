@@ -12,7 +12,7 @@ export default function Blog() {
       excerpt: "Learn how points are calculated and maximize your team's performance...",
       author: "XSNAP Team",
       date: "Dec 20, 2025",
-      image: "/assets/hero_dashboard.png"
+      image: "/assets/hero_dashboard.webp"
     },
     {
       id: 2,
@@ -20,7 +20,7 @@ export default function Blog() {
       excerpt: "Expert strategies to help you climb the leaderboard...",
       author: "XSNAP Team",
       date: "Dec 15, 2025",
-      image: "/assets/hero_team_builder.png"
+      image: "/assets/hero_team_builder.webp"
     },
     {
       id: 3,
@@ -28,7 +28,7 @@ export default function Blog() {
       excerpt: "Choosing the right captain can double your points. Here's how...",
       author: "XSNAP Team",
       date: "Dec 10, 2025",
-      image: "/assets/illustration_how_to_play.png"
+      image: "/assets/illustration_how_to_play.webp"
     }
   ];
 
