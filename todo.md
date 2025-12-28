@@ -270,3 +270,12 @@
 - [x] Update all page components to use i18next
 - [x] Test language switching on all pages
 - [x] Verify translations are accurate and complete
+
+
+## Phase 25: Database Migration & GitHub Deployment
+- [ ] Run pnpm db:push to create all database tables
+- [ ] Verify all 9 tables exist in database (users, passwordResetTokens, matches, players, teams, teamPlayers, leaderboards, blogPosts, contactSubmissions)
+- [ ] Check table structure and indexes
+- [ ] Commit all latest code changes
+- [ ] Push to GitHub repository
+- [ ] Verify GitHub repository is up to date
