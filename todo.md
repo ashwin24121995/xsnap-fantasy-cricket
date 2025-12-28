@@ -227,3 +227,9 @@
 - [x] Add community section with social proof
 - [x] Ensure all sections are responsive and mobile-friendly
 - [x] Add smooth scroll animations for sections
+
+## Missing Homepage Sections
+- [x] Add Player Spotlight section (will populate from cricket API)
+- [x] Add Live Match Updates section with real-time data
+- [x] Fix copyright year from 2024 to 2025 in footer (already dynamic with new Date().getFullYear())
+- [x] Ensure sections are ready for API integration
