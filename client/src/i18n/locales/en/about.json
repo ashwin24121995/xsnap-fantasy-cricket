@@ -1,0 +1,122 @@
+{
+  "about": {
+    "title": "About XSNAP Fantasy Cricket",
+    "subtitle": "India's premier free-to-play fantasy cricket platform dedicated to providing cricket enthusiasts with an educational and entertaining experience without any financial pressure or real money involvement.",
+    
+    "mission": {
+      "title": "Our Mission",
+      "intro": "XSNAP Fantasy Cricket is committed to revolutionizing how cricket enthusiasts engage with the sport. Our mission is to create a safe, transparent, and educational platform where users can:",
+      "point1": "Learn cricket strategy and player performance analysis",
+      "point2": "Build fantasy teams without financial pressure",
+      "point3": "Compete fairly with other cricket enthusiasts",
+      "point4": "Enjoy pure entertainment and skill-based competition"
+    },
+    
+    "vision": {
+      "title": "Our Vision",
+      "intro": "We envision a future where fantasy cricket is recognized as a legitimate educational tool that:",
+      "point1": "Promotes cricket knowledge and strategic thinking",
+      "point2": "Engages millions of cricket fans across India",
+      "point3": "Maintains highest standards of fairness and compliance",
+      "point4": "Sets industry benchmarks for responsible gaming"
+    },
+    
+    "whyFreeToPlay": {
+      "title": "Why 100% Free-to-Play?",
+      "intro": "XSNAP Fantasy Cricket is backed by investors who genuinely believe in fantasy sports as an educational tool and entertainment medium. Unlike traditional fantasy cricket platforms, we have made a strategic decision to keep our platform completely free because:",
+      "financial": {
+        "title": "Financial Accessibility",
+        "desc": "We believe everyone should have access to fantasy cricket regardless of their financial situation. Our free model eliminates barriers and ensures inclusive participation."
+      },
+      "learning": {
+        "title": "Focus on Learning",
+        "desc": "Without financial stakes, users can focus purely on learning cricket strategy, understanding player performance, and developing their analytical skills."
+      },
+      "entertainment": {
+        "title": "Stress-Free Entertainment",
+        "desc": "Enjoy the thrill of fantasy cricket without the anxiety of losing money. Pure entertainment and friendly competition without financial pressure."
+      },
+      "compliance": {
+        "title": "Regulatory Compliance",
+        "desc": "By eliminating real money transactions, we ensure full compliance with all Indian gaming regulations and state-specific restrictions."
+      },
+      "guarantee": "We guarantee 100% free access forever with no hidden charges, no real money deposits or withdrawals, and no premium features that require payment. This is our commitment to making fantasy cricket accessible to everyone."
+    },
+    
+    "company": {
+      "title": "Company Information",
+      "legal": "Legal Details",
+      "name": "Company Name",
+      "nameValue": "XSNAP IMAGING PRIVATE LIMITED",
+      "cin": "CIN (Corporate Identification Number)",
+      "cinValue": "U31909MH2019PTC325365",
+      "pan": "PAN (Permanent Account Number)",
+      "panValue": "AAACX2946B",
+      "type": "Company Type",
+      "typeValue": "Private Limited Company",
+      "year": "Registration Year",
+      "yearValue": "2019",
+      "contact": "Contact Information",
+      "headOffice": "Head Office",
+      "headOfficeAddr": "House No. 260, Near Sai Papers, Jambhall, Badalpur, Thane, Maharashtra, India, 421503",
+      "regionalOffice": "Regional Office",
+      "regionalOfficeAddr": "53/35, Ramjas Rd, Block 53, Karol Bagh, New Delhi, Delhi 110005, India",
+      "email": "Email",
+      "emailValue": "support@xsnaplive.com"
+    },
+    
+    "values": {
+      "title": "Our Core Values",
+      "fairPlay": {
+        "title": "Fair Play & Integrity",
+        "desc": "We maintain transparent rules, equal opportunities for all players, and strict anti-fraud measures. Every player has the same chance to succeed based on their skills and knowledge of cricket."
+      },
+      "education": {
+        "title": "Education & Learning",
+        "desc": "We are committed to helping users understand cricket strategy, player performance analysis, and the nuances of the game. Learning is at the heart of everything we do."
+      },
+      "responsible": {
+        "title": "Responsible Gaming",
+        "desc": "Age verification (18+), state compliance, mental health resources, and responsible gaming practices are fundamental to our platform. We prioritize user safety and wellbeing."
+      },
+      "community": {
+        "title": "Community & Inclusion",
+        "desc": "We are building a vibrant, inclusive community of cricket enthusiasts from all backgrounds. Everyone is welcome to participate and enjoy the game."
+      }
+    },
+    
+    "compliance": {
+      "title": "Compliance & Certifications",
+      "ageVerification": "18+ Age Verification",
+      "stateCompliance": "State Compliance (6 Restricted States)",
+      "freeToPlay": "Free-to-Play Model",
+      "noRealMoney": "No Real Money Transactions",
+      "fairPlay": "Fair Play Certified",
+      "responsibleGaming": "Responsible Gaming"
+    },
+    
+    "whyChoose": {
+      "title": "Why Choose XSNAP Fantasy Cricket?",
+      "free": {
+        "title": "Completely Free Forever",
+        "desc": "No registration fees, no hidden charges, no premium subscriptions. Play fantasy cricket completely free."
+      },
+      "safe": {
+        "title": "100% Safe & Secure",
+        "desc": "Advanced security measures, data encryption, and strict privacy policies protect your information."
+      },
+      "educational": {
+        "title": "Educational Platform",
+        "desc": "Learn cricket strategy, player analysis, and team building without financial pressure."
+      },
+      "fair": {
+        "title": "Fair Competition",
+        "desc": "Transparent rules, anti-fraud measures, and equal opportunities for all players."
+      },
+      "compliant": {
+        "title": "Fully Compliant",
+        "desc": "Age verification (18+), state restrictions, and full regulatory compliance across India."
+      }
+    }
+  }
+}

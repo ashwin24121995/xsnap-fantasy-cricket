@@ -1,0 +1,163 @@
+{
+  "howToPlay": {
+    "title": "How To Play Fantasy Cricket",
+    "subtitle": "Master the art of fantasy cricket with our comprehensive guide. Learn the rules, scoring system, and strategies to build winning teams.",
+    
+    "gettingStarted": {
+      "title": "5-Step Getting Started Guide",
+      "step1": {
+        "title": "Step 1: Create Your Account",
+        "desc": "Sign up with your email and password. Verify your age (18+) and select your state. Your account is instantly ready to play!"
+      },
+      "step2": {
+        "title": "Step 2: Browse & Select a Match",
+        "desc": "Browse available cricket matches (T20, ODI, Test). Check match details, teams, and deadlines. Select the match you want to play."
+      },
+      "step3": {
+        "title": "Step 3: Build Your Fantasy Team",
+        "desc": "Select 11 players within your 100-credit budget. Choose batsmen, bowlers, all-rounders, and wicket-keepers strategically."
+      },
+      "step4": {
+        "title": "Step 4: Submit Your Team",
+        "desc": "Verify your team composition and submit before the match deadline. Your team is locked and ready to compete."
+      },
+      "step5": {
+        "title": "Step 5: Track Performance & Compete",
+        "desc": "Watch live updates as your players score points. Track your position on the leaderboard and compete with other players."
+      }
+    },
+    
+    "scoringSystem": {
+      "title": "Detailed Scoring System",
+      "intro": "Points are awarded based on real match performance. Here's how scoring works:",
+      
+      "batting": {
+        "title": "Batting Scoring",
+        "intro": "Batsmen earn points for runs and other achievements:",
+        "runs": "1 point per run scored",
+        "boundary": "1 bonus point for hitting a boundary (4 runs)",
+        "six": "2 bonus points for hitting a six",
+        "fifty": "4 bonus points for scoring 50+ runs",
+        "century": "8 bonus points for scoring 100+ runs",
+        "duck": "-1 point for getting out without scoring"
+      },
+      
+      "bowling": {
+        "title": "Bowling Scoring",
+        "intro": "Bowlers earn points for wickets and economy:",
+        "wicket": "25 points per wicket taken",
+        "lbw": "25 points for LBW dismissal",
+        "bowled": "25 points for bowled dismissal",
+        "caught": "25 points for caught dismissal",
+        "economy": "Economy bonus: 4 points if economy rate is under 5",
+        "maiden": "1 point for bowling a maiden over"
+      },
+      
+      "fielding": {
+        "title": "Fielding Scoring",
+        "intro": "Fielders earn points for catches and run-outs:",
+        "catch": "8 points per catch",
+        "runOut": "12 points for a run-out",
+        "stumping": "12 points for a stumping"
+      }
+    },
+    
+    "playerRoles": {
+      "title": "Understanding Player Roles",
+      "intro": "Each player has a specific role. Understanding these roles helps you build balanced teams:",
+      
+      "batsman": {
+        "title": "Batsmen (BAT)",
+        "desc": "Primary role is to score runs. They bat first and accumulate points through runs, boundaries, and sixes. Essential for any team."
+      },
+      
+      "bowler": {
+        "title": "Bowlers (BOWL)",
+        "desc": "Primary role is to take wickets. They earn points for wickets taken and economical bowling. Critical for restricting opposition."
+      },
+      
+      "allRounder": {
+        "title": "All-Rounders (AR)",
+        "desc": "Can both bat and bowl. Valuable players who contribute points in both batting and bowling. Flexible team members."
+      },
+      
+      "wicketKeeper": {
+        "title": "Wicket-Keepers (WK)",
+        "desc": "Bat and keep wickets. Earn points for batting, catches, stumpings, and run-outs. Usually good batsmen too."
+      }
+    },
+    
+    "proTips": {
+      "title": "Pro Tips for Success",
+      "tip1": {
+        "title": "Balance Your Team",
+        "desc": "Don't spend all credits on star players. Balance your team with a mix of experienced and emerging players."
+      },
+      "tip2": {
+        "title": "Check Recent Form",
+        "desc": "Look at players' recent performances. In-form players are more likely to score points."
+      },
+      "tip3": {
+        "title": "Consider Pitch Conditions",
+        "desc": "Different pitches favor different players. Batting-friendly pitches favor batsmen; bowling-friendly favor bowlers."
+      },
+      "tip4": {
+        "title": "Diversify Your Selections",
+        "desc": "Don't pick too many players from one team. Spread your selections across multiple teams for balanced risk."
+      },
+      "tip5": {
+        "title": "Monitor Weather",
+        "desc": "Weather can affect match conditions. Check weather forecasts before finalizing your team."
+      },
+      "tip6": {
+        "title": "Captain Selection Matters",
+        "desc": "Your captain's points are multiplied by 2x. Choose a reliable player who's likely to score consistently."
+      }
+    },
+    
+    "importantRules": {
+      "title": "Important Rules & Restrictions",
+      
+      "teamComposition": {
+        "title": "Team Composition",
+        "rule1": "Exactly 11 players must be selected",
+        "rule2": "Maximum 7 players from one real-world team",
+        "rule3": "Minimum 1 wicket-keeper must be selected",
+        "rule4": "Minimum 3 bowlers must be selected",
+        "rule5": "Minimum 3 batsmen must be selected"
+      },
+      
+      "creditBudget": {
+        "title": "Credit Budget",
+        "rule1": "Total budget: 100 credits",
+        "rule2": "Each player has a credit cost",
+        "rule3": "You must spend exactly 100 credits",
+        "rule4": "No partial credits allowed"
+      },
+      
+      "captainSelection": {
+        "title": "Captain & Vice-Captain",
+        "rule1": "Select 1 captain (points multiplied by 2x)",
+        "rule2": "Select 1 vice-captain (points multiplied by 1.5x)",
+        "rule3": "Captain and vice-captain must be different players",
+        "rule4": "Captain must be in your final 11"
+      },
+      
+      "deadlines": {
+        "title": "Match Deadlines",
+        "rule1": "Team must be submitted before match starts",
+        "rule2": "No changes allowed after deadline",
+        "rule3": "Check match start time carefully",
+        "rule4": "Deadline is strictly enforced"
+      },
+      
+      "scoring": {
+        "title": "Scoring Rules",
+        "rule1": "Points are calculated in real-time",
+        "rule2": "Points are based on official match data",
+        "rule3": "Disputed decisions follow official cricket rules",
+        "rule4": "No manual score adjustments"
+      }
+    }
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "privacy": {
+    "title": "Privacy Policy",
+    "sections": [
+      {
+        "title": "Information Collection",
+        "content": "We collect email, age, state, and gameplay data."
+      },
+      {
+        "title": "Data Usage",
+        "content": "Data used to provide service and improve experience."
+      },
+      {
+        "title": "Data Security",
+        "content": "We use encryption and security measures."
+      },
+      {
+        "title": "Data Sharing",
+        "content": "We don't share data with third parties."
+      },
+      {
+        "title": "Cookies",
+        "content": "We use cookies for functionality."
+      },
+      {
+        "title": "User Rights",
+        "content": "You can request data access or deletion."
+      },
+      {
+        "title": "Data Retention",
+        "content": "Data retained as long as account active."
+      },
+      {
+        "title": "Children's Privacy",
+        "content": "Service for 18+ only."
+      },
+      {
+        "title": "International Transfers",
+        "content": "Data may be transferred internationally."
+      },
+      {
+        "title": "Third-Party Links",
+        "content": "Not responsible for external privacy."
+      },
+      {
+        "title": "Policy Updates",
+        "content": "We may update this policy."
+      },
+      {
+        "title": "Contact",
+        "content": "Email: privacy@xsnaplive.com"
+      }
+    ]
+  }
+}

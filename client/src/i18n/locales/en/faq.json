@@ -1,0 +1,265 @@
+{
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Find answers to common questions about XSNAP Fantasy Cricket.",
+    "categories": {
+      "gettingStarted": {
+        "title": "Getting Started",
+        "questions": [
+          {
+            "q": "How do I register on XSNAP?",
+            "a": "Visit the website, click 'Sign Up', enter your email and password, verify your age (18+), select your state, and confirm your registration."
+          },
+          {
+            "q": "Is XSNAP available in my state?",
+            "a": "XSNAP is available in most Indian states except Assam, Odisha, Sikkim, Telangana, and a few others. Check during registration."
+          },
+          {
+            "q": "Do I need to pay to play?",
+            "a": "No! XSNAP is 100% free. There are no hidden charges, registration fees, or payment requirements."
+          },
+          {
+            "q": "How do I verify my age?",
+            "a": "During registration, you'll be asked to confirm you're 18 or older. This is a legal requirement."
+          },
+          {
+            "q": "Can I change my state after registration?",
+            "a": "State selection is permanent for compliance reasons. Choose carefully during registration."
+          }
+        ]
+      },
+      "gameplay": {
+        "title": "Gameplay & Teams",
+        "questions": [
+          {
+            "q": "How many players do I select for my team?",
+            "a": "You must select exactly 11 players within your 100-credit budget."
+          },
+          {
+            "q": "What is the credit system?",
+            "a": "Each player has a credit cost. You have 100 credits total and must spend exactly 100 credits."
+          },
+          {
+            "q": "Can I have more than 7 players from one team?",
+            "a": "No. Maximum 7 players from any single real-world cricket team."
+          },
+          {
+            "q": "What is a captain and vice-captain?",
+            "a": "Captain's points are multiplied by 2x, vice-captain's by 1.5x. Choose wisely!"
+          },
+          {
+            "q": "Can I change my team after submission?",
+            "a": "No. Once submitted, your team is locked until the match ends."
+          },
+          {
+            "q": "What if a player gets injured before the match?",
+            "a": "If a player doesn't play, they score 0 points. Check team news before finalizing."
+          },
+          {
+            "q": "How many teams can I create for one match?",
+            "a": "You can create multiple teams for the same match to increase your chances."
+          },
+          {
+            "q": "What happens if my team has less than 11 players?",
+            "a": "You must have exactly 11 players. The system won't allow submission otherwise."
+          }
+        ]
+      },
+      "scoring": {
+        "title": "Scoring System",
+        "questions": [
+          {
+            "q": "How are points calculated?",
+            "a": "Points are based on real match performance: runs, wickets, catches, etc."
+          },
+          {
+            "q": "How many points for a century?",
+            "a": "8 bonus points for scoring 100+ runs."
+          },
+          {
+            "q": "How many points for a wicket?",
+            "a": "25 points per wicket taken."
+          },
+          {
+            "q": "Do fielders get points?",
+            "a": "Yes. 8 points per catch, 12 points for run-outs and stumpings."
+          },
+          {
+            "q": "What is the economy bonus?",
+            "a": "4 points if a bowler's economy rate is under 5 runs per over."
+          },
+          {
+            "q": "Can points be negative?",
+            "a": "Yes. -1 point for getting out without scoring (duck)."
+          },
+          {
+            "q": "When are points updated?",
+            "a": "Points are updated in real-time as the match progresses."
+          },
+          {
+            "q": "What if there's a dispute about scoring?",
+            "a": "Official cricket rules apply. XSNAP uses official match data."
+          },
+          {
+            "q": "Do substitute players get points?",
+            "a": "Only if they actually play in the match."
+          }
+        ]
+      },
+      "leaderboard": {
+        "title": "Leaderboard & Competition",
+        "questions": [
+          {
+            "q": "How is the leaderboard ranked?",
+            "a": "By total points scored. Highest points rank first."
+          },
+          {
+            "q": "Is the competition fair?",
+            "a": "Yes. All players have the same budget, same rules, and same information."
+          },
+          {
+            "q": "Can I see other players' teams?",
+            "a": "You can see leaderboard rankings but not individual team details."
+          },
+          {
+            "q": "How often is the leaderboard updated?",
+            "a": "In real-time as matches progress and points are awarded."
+          },
+          {
+            "q": "What if two players have the same score?",
+            "a": "They are ranked equally. Tiebreakers are not used."
+          }
+        ]
+      },
+      "account": {
+        "title": "Account & Security",
+        "questions": [
+          {
+            "q": "How do I reset my password?",
+            "a": "Click 'Forgot Password' on the login page and follow the email instructions."
+          },
+          {
+            "q": "Is my data secure?",
+            "a": "Yes. We use encryption and follow strict privacy policies."
+          },
+          {
+            "q": "Can I delete my account?",
+            "a": "Yes. Contact support@xsnaplive.com to request account deletion."
+          },
+          {
+            "q": "What if I forget my email?",
+            "a": "Contact support with proof of identity to recover your account."
+          },
+          {
+            "q": "Can I have multiple accounts?",
+            "a": "No. One account per person. Multiple accounts may be banned."
+          },
+          {
+            "q": "How do I update my profile?",
+            "a": "Go to Settings and update your email, password, or other details."
+          }
+        ]
+      },
+      "matches": {
+        "title": "Matches & Formats",
+        "questions": [
+          {
+            "q": "What match formats are available?",
+            "a": "T20, ODI (One Day International), and Test matches."
+          },
+          {
+            "q": "When do matches become available?",
+            "a": "Usually a few days before the match date."
+          },
+          {
+            "q": "What is the team submission deadline?",
+            "a": "Your team must be submitted before the match starts. Check the exact time."
+          },
+          {
+            "q": "Can I see live match updates?",
+            "a": "Yes. Live scores and updates are shown on the match page."
+          },
+          {
+            "q": "What if a match is cancelled?",
+            "a": "Your team entry is refunded or transferred to the rescheduled match."
+          },
+          {
+            "q": "Are international matches available?",
+            "a": "Yes. All major international cricket matches are available."
+          }
+        ]
+      },
+      "responsible": {
+        "title": "Responsible Gaming",
+        "questions": [
+          {
+            "q": "Is fantasy cricket safe?",
+            "a": "Yes. XSNAP is free-to-play with no real money involved."
+          },
+          {
+            "q": "What if I feel addicted?",
+            "a": "Contact our support team or seek help from mental health professionals."
+          },
+          {
+            "q": "Can I set limits on my activity?",
+            "a": "Yes. You can limit your team creation or take breaks."
+          },
+          {
+            "q": "Where can I get help?",
+            "a": "Contact support@xsnaplive.com or call mental health helplines."
+          }
+        ]
+      },
+      "technical": {
+        "title": "Technical Support",
+        "questions": [
+          {
+            "q": "What browsers are supported?",
+            "a": "Chrome, Firefox, Safari, and Edge. Use the latest version."
+          },
+          {
+            "q": "Is there a mobile app?",
+            "a": "Yes. Download from the App Store or Google Play."
+          },
+          {
+            "q": "Why is the page not loading?",
+            "a": "Clear your cache, try a different browser, or contact support."
+          },
+          {
+            "q": "How do I report a bug?",
+            "a": "Email support@xsnaplive.com with details and screenshots."
+          },
+          {
+            "q": "Is XSNAP available offline?",
+            "a": "No. Internet connection is required to play."
+          }
+        ]
+      },
+      "contact": {
+        "title": "Contact & Support",
+        "questions": [
+          {
+            "q": "How do I contact support?",
+            "a": "Email support@xsnaplive.com or use the in-app support chat."
+          },
+          {
+            "q": "What is the response time?",
+            "a": "Usually within 24 hours."
+          },
+          {
+            "q": "Can I provide feedback?",
+            "a": "Yes. We welcome suggestions at feedback@xsnaplive.com."
+          },
+          {
+            "q": "How do I report unfair play?",
+            "a": "Email support@xsnaplive.com with evidence of cheating or fraud."
+          },
+          {
+            "q": "Is there a community forum?",
+            "a": "Yes. Join our community to discuss strategies and connect with other players."
+          }
+        ]
+      }
+    }
+  }
+}

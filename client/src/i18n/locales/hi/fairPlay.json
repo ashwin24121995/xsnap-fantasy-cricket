@@ -1,0 +1,43 @@
+{
+  "fairPlay": {
+    "title": "Fair Play Policy",
+    "sections": [
+      {
+        "title": "Commitment",
+        "content": "We're committed to fair play for all."
+      },
+      {
+        "title": "Prohibited Activities",
+        "content": "No cheating, collusion, or fraud."
+      },
+      {
+        "title": "Transparent Rules",
+        "content": "All rules are transparent and public."
+      },
+      {
+        "title": "Fraud Detection",
+        "content": "We monitor for suspicious activity."
+      },
+      {
+        "title": "Data Integrity",
+        "content": "Scoring based on official data only."
+      },
+      {
+        "title": "User Responsibilities",
+        "content": "Play fairly and report violations."
+      },
+      {
+        "title": "Reporting Violations",
+        "content": "Email support@xsnaplive.com with evidence."
+      },
+      {
+        "title": "Consequences",
+        "content": "Violations result in account suspension/ban."
+      },
+      {
+        "title": "Appeals",
+        "content": "Users can appeal decisions."
+      }
+    ]
+  }
+}

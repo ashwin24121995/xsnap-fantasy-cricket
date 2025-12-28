@@ -1,0 +1,108 @@
+{
+  "faq": {
+    "title": "Frequently Asked Questions (Tamil)",
+    "subtitle": "Find answers to common questions about XSNAP Fantasy Cricket.",
+    "categories": {
+      "gettingStarted": {
+        "title": "Getting Started",
+        "questions": [
+          {
+            "q": "How do I register?",
+            "a": "Sign up with email and password, verify age (18+), select state."
+          },
+          {
+            "q": "Is it free?",
+            "a": "Yes, 100% free with no hidden charges."
+          },
+          {
+            "q": "What states are allowed?",
+            "a": "Most states except Assam, Odisha, Sikkim, Telangana."
+          },
+          {
+            "q": "Do I need to pay?",
+            "a": "No payment required at any time."
+          },
+          {
+            "q": "How do I verify my age?",
+            "a": "Confirm you're 18+ during registration."
+          }
+        ]
+      },
+      "gameplay": {
+        "title": "Gameplay",
+        "questions": [
+          {
+            "q": "How many players?",
+            "a": "Select exactly 11 players within 100 credits."
+          },
+          {
+            "q": "What is credit?",
+            "a": "Budget system. Each player costs credits."
+          },
+          {
+            "q": "Can I change my team?",
+            "a": "No, once submitted it's locked."
+          },
+          {
+            "q": "What is captain?",
+            "a": "Captain's points are multiplied by 2x."
+          },
+          {
+            "q": "Multiple teams?",
+            "a": "Yes, create multiple teams for same match."
+          }
+        ]
+      },
+      "scoring": {
+        "title": "Scoring",
+        "questions": [
+          {
+            "q": "How are points calculated?",
+            "a": "Based on real match performance."
+          },
+          {
+            "q": "Points for century?",
+            "a": "8 bonus points for 100+ runs."
+          },
+          {
+            "q": "Points for wicket?",
+            "a": "25 points per wicket."
+          },
+          {
+            "q": "Fielding points?",
+            "a": "8 for catch, 12 for run-out."
+          },
+          {
+            "q": "When updated?",
+            "a": "In real-time during match."
+          }
+        ]
+      },
+      "support": {
+        "title": "Support",
+        "questions": [
+          {
+            "q": "How to contact?",
+            "a": "Email support@xsnaplive.com"
+          },
+          {
+            "q": "Response time?",
+            "a": "Usually within 24 hours."
+          },
+          {
+            "q": "Report bug?",
+            "a": "Email support with details."
+          },
+          {
+            "q": "Feedback?",
+            "a": "Send to feedback@xsnaplive.com"
+          },
+          {
+            "q": "Is it safe?",
+            "a": "Yes, 100% secure and encrypted."
+          }
+        ]
+      }
+    }
+  }
+}
