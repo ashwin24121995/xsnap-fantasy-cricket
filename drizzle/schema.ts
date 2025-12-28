@@ -1,28 +1,265 @@
-import { int, mysqlEnum, mysqlTable, text, timestamp, varchar } from "drizzle-orm/mysql-core";
+import { int, mysqlEnum, mysqlTable, text, timestamp, varchar, decimal, boolean, index } from "drizzle-orm/mysql-core";
 
 /**
- * Core user table backing auth flow.
- * Extend this file with additional tables as your product grows.
- * Columns use camelCase to match both database fields and generated types.
+ * XSNAP Fantasy Cricket Database Schema
+ * Free-to-play fantasy cricket platform with custom authentication
  */
+
+// Users table with custom authentication (no Manus OAuth)
 export const users = mysqlTable("users", {
-  /**
-   * Surrogate primary key. Auto-incremented numeric value managed by the database.
-   * Use this for relations between tables.
-   */
   id: int("id").autoincrement().primaryKey(),
-  /** Manus OAuth identifier (openId) returned from the OAuth callback. Unique per user. */
-  openId: varchar("openId", { length: 64 }).notNull().unique(),
-  name: text("name"),
-  email: varchar("email", { length: 320 }),
-  loginMethod: varchar("loginMethod", { length: 64 }),
+  email: varchar("email", { length: 320 }).notNull().unique(),
+  passwordHash: varchar("passwordHash", { length: 255 }).notNull(),
+  name: varchar("name", { length: 255 }).notNull(),
+  
+  // Compliance fields
+  age: int("age").notNull(),
+  state: varchar("state", { length: 100 }).notNull(),
+  isAgeVerified: boolean("isAgeVerified").default(false).notNull(),
+  acceptedTerms: boolean("acceptedTerms").default(false).notNull(),
+  
+  // User preferences
+  language: mysqlEnum("language", ["en", "hi", "ta", "te", "mr"]).default("en").notNull(),
   role: mysqlEnum("role", ["user", "admin"]).default("user").notNull(),
+  
+  // Profile
+  profilePicture: text("profilePicture"),
+  phone: varchar("phone", { length: 20 }),
+  
+  // Stats
+  totalPoints: int("totalPoints").default(0).notNull(),
+  totalTeams: int("totalTeams").default(0).notNull(),
+  
+  // Timestamps
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
   lastSignedIn: timestamp("lastSignedIn").defaultNow().notNull(),
-});
+  emailVerified: boolean("emailVerified").default(false).notNull(),
+}, (table) => ({
+  emailIdx: index("email_idx").on(table.email),
+}));
 
+// Password reset tokens
+export const passwordResetTokens = mysqlTable("passwordResetTokens", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  token: varchar("token", { length: 255 }).notNull().unique(),
+  expiresAt: timestamp("expiresAt").notNull(),
+  used: boolean("used").default(false).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+}, (table) => ({
+  tokenIdx: index("token_idx").on(table.token),
+  userIdx: index("user_idx").on(table.userId),
+}));
+
+// Matches table - stores cricket match information from API
+export const matches = mysqlTable("matches", {
+  id: int("id").autoincrement().primaryKey(),
+  apiMatchId: varchar("apiMatchId", { length: 100 }).notNull().unique(),
+  
+  // Match details
+  team1: varchar("team1", { length: 255 }).notNull(),
+  team2: varchar("team2", { length: 255 }).notNull(),
+  team1Logo: text("team1Logo"),
+  team2Logo: text("team2Logo"),
+  
+  matchType: mysqlEnum("matchType", ["T20", "ODI", "Test"]).notNull(),
+  venue: varchar("venue", { length: 255 }).notNull(),
+  
+  // Timing
+  startTime: timestamp("startTime").notNull(),
+  endTime: timestamp("endTime"),
+  
+  // Status
+  status: mysqlEnum("status", ["upcoming", "live", "completed", "cancelled"]).default("upcoming").notNull(),
+  
+  // Results
+  winner: varchar("winner", { length: 255 }),
+  
+  // Timestamps
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (table) => ({
+  apiMatchIdIdx: index("api_match_id_idx").on(table.apiMatchId),
+  statusIdx: index("status_idx").on(table.status),
+  startTimeIdx: index("start_time_idx").on(table.startTime),
+}));
+
+// Players table - stores cricket player information
+export const players = mysqlTable("players", {
+  id: int("id").autoincrement().primaryKey(),
+  apiPlayerId: varchar("apiPlayerId", { length: 100 }).notNull().unique(),
+  
+  // Player details
+  name: varchar("name", { length: 255 }).notNull(),
+  team: varchar("team", { length: 255 }).notNull(),
+  role: mysqlEnum("role", ["batsman", "bowler", "allrounder", "wicketkeeper"]).notNull(),
+  
+  // Profile
+  image: text("image"),
+  country: varchar("country", { length: 100 }),
+  
+  // Fantasy stats
+  price: decimal("price", { precision: 10, scale: 2 }).notNull(), // Credits (0-15)
+  points: int("points").default(0).notNull(),
+  
+  // Performance stats
+  matchesPlayed: int("matchesPlayed").default(0).notNull(),
+  runs: int("runs").default(0).notNull(),
+  wickets: int("wickets").default(0).notNull(),
+  catches: int("catches").default(0).notNull(),
+  
+  // Timestamps
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (table) => ({
+  apiPlayerIdIdx: index("api_player_id_idx").on(table.apiPlayerId),
+  roleIdx: index("role_idx").on(table.role),
+  teamIdx: index("team_idx").on(table.team),
+}));
+
+// Teams table - user created fantasy teams
+export const teams = mysqlTable("teams", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  matchId: int("matchId").notNull(),
+  
+  // Team details
+  teamName: varchar("teamName", { length: 255 }).notNull(),
+  captainId: int("captainId").notNull(),
+  viceCaptainId: int("viceCaptainId").notNull(),
+  
+  // Budget
+  totalCredits: decimal("totalCredits", { precision: 10, scale: 2 }).default("100.00").notNull(),
+  usedCredits: decimal("usedCredits", { precision: 10, scale: 2 }).default("0.00").notNull(),
+  
+  // Stats
+  totalPoints: int("totalPoints").default(0).notNull(),
+  rank: int("rank"),
+  
+  // Timestamps
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (table) => ({
+  userIdx: index("user_idx").on(table.userId),
+  matchIdx: index("match_idx").on(table.matchId),
+  rankIdx: index("rank_idx").on(table.rank),
+}));
+
+// Team Players junction table
+export const teamPlayers = mysqlTable("teamPlayers", {
+  id: int("id").autoincrement().primaryKey(),
+  teamId: int("teamId").notNull(),
+  playerId: int("playerId").notNull(),
+  
+  // Player earned points in this team
+  pointsEarned: int("pointsEarned").default(0).notNull(),
+  
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+}, (table) => ({
+  teamIdx: index("team_idx").on(table.teamId),
+  playerIdx: index("player_idx").on(table.playerId),
+}));
+
+// Leaderboards - global and match-specific rankings
+export const leaderboards = mysqlTable("leaderboards", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  matchId: int("matchId"), // null for global leaderboard
+  
+  // Rankings
+  rank: int("rank").notNull(),
+  points: int("points").default(0).notNull(),
+  
+  // Period
+  period: mysqlEnum("period", ["overall", "weekly", "match"]).default("overall").notNull(),
+  
+  // Timestamps
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (table) => ({
+  userIdx: index("user_idx").on(table.userId),
+  matchIdx: index("match_idx").on(table.matchId),
+  rankIdx: index("rank_idx").on(table.rank),
+  periodIdx: index("period_idx").on(table.period),
+}));
+
+// Blog posts
+export const blogPosts = mysqlTable("blogPosts", {
+  id: int("id").autoincrement().primaryKey(),
+  
+  // Content
+  title: varchar("title", { length: 500 }).notNull(),
+  slug: varchar("slug", { length: 500 }).notNull().unique(),
+  excerpt: text("excerpt").notNull(),
+  content: text("content").notNull(),
+  
+  // Media
+  featuredImage: text("featuredImage"),
+  
+  // Metadata
+  authorId: int("authorId").notNull(),
+  category: varchar("category", { length: 100 }),
+  tags: text("tags"), // JSON array of tags
+  
+  // Status
+  published: boolean("published").default(false).notNull(),
+  
+  // Timestamps
+  publishedAt: timestamp("publishedAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (table) => ({
+  slugIdx: index("slug_idx").on(table.slug),
+  authorIdx: index("author_idx").on(table.authorId),
+  publishedIdx: index("published_idx").on(table.published),
+}));
+
+// Contact form submissions
+export const contactSubmissions = mysqlTable("contactSubmissions", {
+  id: int("id").autoincrement().primaryKey(),
+  
+  // Contact details
+  name: varchar("name", { length: 255 }).notNull(),
+  email: varchar("email", { length: 320 }).notNull(),
+  phone: varchar("phone", { length: 20 }),
+  subject: varchar("subject", { length: 500 }).notNull(),
+  message: text("message").notNull(),
+  
+  // Status
+  status: mysqlEnum("status", ["new", "read", "responded"]).default("new").notNull(),
+  
+  // Timestamps
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+}, (table) => ({
+  statusIdx: index("status_idx").on(table.status),
+  emailIdx: index("email_idx").on(table.email),
+}));
+
+// Type exports
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 
-// TODO: Add your tables here
+export type PasswordResetToken = typeof passwordResetTokens.$inferSelect;
+export type InsertPasswordResetToken = typeof passwordResetTokens.$inferInsert;
+
+export type Match = typeof matches.$inferSelect;
+export type InsertMatch = typeof matches.$inferInsert;
+
+export type Player = typeof players.$inferSelect;
+export type InsertPlayer = typeof players.$inferInsert;
+
+export type Team = typeof teams.$inferSelect;
+export type InsertTeam = typeof teams.$inferInsert;
+
+export type TeamPlayer = typeof teamPlayers.$inferSelect;
+export type InsertTeamPlayer = typeof teamPlayers.$inferInsert;
+
+export type Leaderboard = typeof leaderboards.$inferSelect;
+export type InsertLeaderboard = typeof leaderboards.$inferInsert;
+
+export type BlogPost = typeof blogPosts.$inferSelect;
+export type InsertBlogPost = typeof blogPosts.$inferInsert;
+
+export type ContactSubmission = typeof contactSubmissions.$inferSelect;
+export type InsertContactSubmission = typeof contactSubmissions.$inferInsert;

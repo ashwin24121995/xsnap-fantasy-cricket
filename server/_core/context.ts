@@ -1,6 +1,10 @@
 import type { CreateExpressContextOptions } from "@trpc/server/adapters/express";
+import cookie from "cookie";
 import type { User } from "../../drizzle/schema";
-import { sdk } from "./sdk";
+import { verifyToken } from "../auth";
+import { getUserById } from "../db";
+
+export const CUSTOM_AUTH_COOKIE = "xsnap_auth_token";
 
 export type TrpcContext = {
   req: CreateExpressContextOptions["req"];
@@ -11,18 +15,34 @@ export type TrpcContext = {
 export async function createContext(
   opts: CreateExpressContextOptions
 ): Promise<TrpcContext> {
+  const { req, res } = opts;
   let user: User | null = null;
 
-  try {
-    user = await sdk.authenticateRequest(opts.req);
-  } catch (error) {
-    // Authentication is optional for public procedures.
-    user = null;
+  // Try to get token from cookie
+  const cookies = cookie.parse(req.headers.cookie || "");
+  const token = cookies[CUSTOM_AUTH_COOKIE];
+
+  if (token) {
+    try {
+      // Verify JWT token
+      const payload = await verifyToken(token);
+      if (payload) {
+        // Get user from database
+        const dbUser = await getUserById(payload.userId);
+        if (dbUser) {
+          user = dbUser;
+        }
+      }
+    } catch (error) {
+      console.error("[Auth] Token verification failed:", error);
+      // Clear invalid cookie
+      res.clearCookie(CUSTOM_AUTH_COOKIE);
+    }
   }
 
   return {
-    req: opts.req,
-    res: opts.res,
+    req,
+    res,
     user,
   };
 }
