@@ -8,6 +8,7 @@ import { useLocation } from "wouter";
 import { trpc } from '@/lib/trpc';
 import { format } from 'date-fns';
 import { useEffect } from 'react';
+import { LiveMatchCard } from '@/components/LiveMatchCard';
 
 export default function Matches() {
   const [, navigate] = useLocation();
@@ -108,7 +109,7 @@ export default function Matches() {
               </h2>
               <div className="space-y-6">
                 {liveMatches.map((match) => (
-                  <MatchCard key={match.id} match={match} isLive={true} navigate={navigate} />
+                  <LiveMatchCard key={match.id} match={match} />
                 ))}
               </div>
             </div>

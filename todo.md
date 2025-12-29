@@ -396,3 +396,18 @@
 - [x] Added database migration to build command in railway.json
 - [x] Created comprehensive Railway deployment guide
 - [x] Documented all environment variables and troubleshooting steps
+
+
+## Phase 36: Real-Time Match Score Updates ✅ COMPLETED
+- [x] Design real-time score update architecture
+- [x] Create tRPC endpoint for fetching live match scores (getLiveScore)
+- [x] Add match score polling mechanism (every 30 seconds for live matches)
+- [x] Build LiveMatchCard component with real-time score display
+- [x] Build LiveScoreboard component with enhanced animations
+- [x] Add score change animations (runs, wickets, overs with scale/color effects)
+- [x] Display live indicators (red dot, "LIVE" badge, pulsing animation)
+- [x] Add innings breakdown (team scores, run rate, overs)
+- [x] Implement score change detection with visual feedback
+- [x] Add "Batting" badge for currently batting team
+- [x] Update Matches page to use LiveMatchCard for live matches
+- [x] Add auto-refresh with 30-second intervals
