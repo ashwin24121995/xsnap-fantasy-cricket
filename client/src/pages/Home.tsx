@@ -27,7 +27,9 @@ import {
   HelpCircle,
   MessageCircle,
   BarChart3,
-  Gamepad2
+  Gamepad2,
+  MapPin,
+  Calendar
 } from "lucide-react";
 
 const heroImages = [
