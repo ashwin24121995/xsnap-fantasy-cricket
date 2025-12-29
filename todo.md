@@ -411,3 +411,12 @@
 - [x] Add "Batting" badge for currently batting team
 - [x] Update Matches page to use LiveMatchCard for live matches
 - [x] Add auto-refresh with 30-second intervals
+
+
+## Phase 37: Update Home Page to Show Real Matches
+- [ ] Remove placeholder "Match Data Coming Soon" section from Home page
+- [ ] Fetch real upcoming matches from Cricket API on Home page
+- [ ] Display match cards with team names, date, venue
+- [ ] Add "View All Matches" button linking to /matches page
+- [ ] Handle empty state when no matches available
+- [ ] Test Home page displays correctly
