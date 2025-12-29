@@ -15,11 +15,25 @@ import * as cricketApi from "./_core/cricketApi";
 export const matchesRouter = router({
   // Get upcoming matches (today + future only, no completed)
   getUpcoming: publicProcedure.query(async () => {
-    // Get latest matches from Cricket API
-    const apiMatches = await cricketApi.getCurrentMatches();
+    // Get matches from active series (Big Bash, ILT20, SA20)
+    const seriesMatches = await cricketApi.getUpcomingMatchesFromSeries();
     
-    // Filter to show only upcoming matches (today + future, fantasy-enabled)
-    const upcomingMatches = cricketApi.filterUpcomingMatches(apiMatches);
+    // Also get today's matches
+    const currentMatches = await cricketApi.getCurrentMatches();
+    
+    // Combine and deduplicate
+    const allMatches = [...currentMatches, ...seriesMatches];
+    const uniqueMatches = Array.from(
+      new Map(allMatches.map(m => [m.id, m])).values()
+    );
+    
+    // Filter to show only upcoming matches (today + future, not completed)
+    const upcomingMatches = cricketApi.filterUpcomingMatches(uniqueMatches);
+    
+    // Sort by date (earliest first)
+    upcomingMatches.sort((a, b) => 
+      new Date(a.dateTimeGMT).getTime() - new Date(b.dateTimeGMT).getTime()
+    );
     
     // Sync to database
     if (upcomingMatches.length > 0) {
@@ -34,6 +48,13 @@ export const matchesRouter = router({
     const apiMatches = await cricketApi.getCurrentMatches();
     const liveMatches = cricketApi.filterLiveMatches(apiMatches);
     return liveMatches;
+  }),
+
+  // Get completed matches
+  getCompleted: publicProcedure.query(async () => {
+    const apiMatches = await cricketApi.getCurrentMatches();
+    const completedMatches = cricketApi.filterCompletedMatches(apiMatches);
+    return completedMatches;
   }),
 
   // Get live score for a specific match (for real-time updates)

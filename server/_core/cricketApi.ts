@@ -91,6 +91,40 @@ export async function getCurrentMatches(): Promise<Match[]> {
 }
 
 /**
+ * Get upcoming matches from active series
+ * Fetches matches from Big Bash League and other ongoing series
+ */
+export async function getUpcomingMatchesFromSeries(): Promise<Match[]> {
+  try {
+    // Big Bash League 2024-25 (active series with matches Dec 29 onwards)
+    const seriesIds = [
+      '107c2a65-2778-4235-b31d-bbc29346cd94', // Big Bash League 2024-25
+      '35c5209a-781b-48f9-8675-0f57be850b4a', // ILT20 2024-25
+      '02cafabf-ce3e-4b47-9910-c75dfd8d1515', // SA20 2024-25
+    ];
+
+    const allMatches: Match[] = [];
+
+    for (const seriesId of seriesIds) {
+      try {
+        const response = await fetchCricketApi<any>('series_info', { id: seriesId });
+        if (response.status === 'success' && response.data?.matchList) {
+          const matches = response.data.matchList as Match[];
+          allMatches.push(...matches);
+        }
+      } catch (err) {
+        console.error(`Error fetching series ${seriesId}:`, err);
+      }
+    }
+
+    return allMatches;
+  } catch (error) {
+    console.error('Error fetching upcoming matches from series:', error);
+    return [];
+  }
+}
+
+/**
  * Get all matches
  */
 export async function getAllMatches(): Promise<Match[]> {
@@ -286,9 +320,6 @@ export function filterUpcomingMatches(matches: Match[]): Match[] {
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   
   return matches.filter(match => {
-    // Only show fantasy-enabled matches
-    if (!match.fantasyEnabled) return false;
-    
     // Check if match has ended
     if (match.status && (
       match.status.includes('won by') ||
@@ -319,6 +350,21 @@ export function filterLiveMatches(matches: Match[]): Match[] {
                    !match.status.includes('No result');
     
     return isLive;
+  });
+}
+
+/**
+ * Filter completed matches
+ * Returns only matches that have finished
+ */
+export function filterCompletedMatches(matches: Match[]): Match[] {
+  return matches.filter(match => {
+    // Check if match has ended
+    return match.status && (
+      match.status.includes('won by') ||
+      match.status.includes('Match tied') ||
+      match.status.includes('No result')
+    );
   });
 }
 
