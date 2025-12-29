@@ -44,7 +44,45 @@ export interface Match {
 export interface Player {
   id: string;
   name: string;
+  role?: string;
+  battingStyle?: string;
+  bowlingStyle?: string;
   country: string;
+  playerImg?: string;
+}
+
+export interface MatchInfo {
+  id: string;
+  name: string;
+  matchType: string;
+  status: string;
+  venue: string;
+  date: string;
+  dateTimeGMT: string;
+  teams: string[];
+  teamInfo?: Array<{
+    name: string;
+    shortname: string;
+    img: string;
+  }>;
+  score?: Array<{
+    r: number;
+    w: number;
+    o: number;
+    inning: string;
+  }>;
+  tossWinner?: string;
+  tossChoice?: string;
+  matchWinner?: string;
+  series_id: string;
+  fantasyEnabled: boolean;
+  hasSquad: boolean;
+  matchStarted: boolean;
+  matchEnded: boolean;
+}
+
+export interface MatchSquad {
+  [teamName: string]: Player[];
 }
 
 export interface Series {
@@ -138,12 +176,13 @@ export async function getAllMatches(): Promise<Match[]> {
 }
 
 /**
- * Get match details by ID
+ * Get detailed match information
+ * Returns complete match details including scores, toss, winner
  */
-export async function getMatchInfo(matchId: string): Promise<Match | null> {
+export async function getMatchInfo(matchId: string): Promise<MatchInfo | null> {
   try {
-    const response = await fetchCricketApi<Match>('match_info', { id: matchId });
-    return response.status === 'success' ? response.data : null;
+    const response = await fetchCricketApi<MatchInfo>('match_info', { id: matchId });
+    return response.status === 'success' && response.data ? response.data : null;
   } catch (error) {
     console.error('Error fetching match info:', error);
     return null;
@@ -380,4 +419,18 @@ export function hasMatchStarted(match: Match): boolean {
   const matchTime = new Date(match.dateTimeGMT);
   const now = new Date();
   return now >= matchTime;
+}
+
+/**
+ * Get match squad (player lists for both teams)
+ * Returns complete player rosters with images and details
+ */
+export async function getMatchSquad(matchId: string): Promise<MatchSquad | null> {
+  try {
+    const response = await fetchCricketApi<MatchSquad>('match_squad', { id: matchId });
+    return response.status === 'success' && response.data ? response.data : null;
+  } catch (error) {
+    console.error('Error fetching match squad:', error);
+    return null;
+  }
 }

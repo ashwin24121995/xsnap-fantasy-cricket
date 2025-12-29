@@ -57,6 +57,20 @@ export const matchesRouter = router({
     return completedMatches;
   }),
 
+  // Get detailed match information
+  getMatchInfo: publicProcedure
+    .input(z.object({ matchId: z.string() }))
+    .query(async ({ input }) => {
+      return await cricketApi.getMatchInfo(input.matchId);
+    }),
+
+  // Get match squad (player lists)
+  getMatchSquad: publicProcedure
+    .input(z.object({ matchId: z.string() }))
+    .query(async ({ input }) => {
+      return await cricketApi.getMatchSquad(input.matchId);
+    }),
+
   // Get live score for a specific match (for real-time updates)
   getLiveScore: publicProcedure
     .input(z.object({ matchApiId: z.string() }))

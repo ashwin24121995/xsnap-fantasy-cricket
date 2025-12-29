@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RefreshCw, Calendar, Radio, CheckCircle2, Trophy, Clock, MapPin } from "lucide-react";
 import { format } from "date-fns";
 import { useLocation } from "wouter";
+import { MatchSquadDialog } from "@/components/MatchSquadDialog";
 
 export default function Matches() {
   const [, navigate] = useLocation();
@@ -252,14 +253,17 @@ function UpcomingMatchCard({ match, navigate }: { match: any; navigate: any }) {
           <span className="line-clamp-1">{match.venue}</span>
         </div>
 
-        {/* Create Team Button */}
-        <Button 
-          className="w-full" 
-          size="lg"
-          onClick={() => navigate(`/create-team/${match.id}`)}
-        >
-          Create Team
-        </Button>
+        {/* Action Buttons */}
+        <div className="flex gap-2">
+          <MatchSquadDialog matchId={match.id} matchName={match.name} />
+          <Button 
+            className="flex-1" 
+            size="lg"
+            onClick={() => navigate(`/create-team/${match.id}`)}
+          >
+            Create Team
+          </Button>
+        </div>
       </div>
     </Card>
   );

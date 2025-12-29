@@ -451,3 +451,23 @@
 - [x] Fix nested anchor tags error (no nested anchors found, error resolved)
 - [x] Test Home page loads without errors (all errors fixed)
 - [x] Verify all match cards display correctly (4 matches showing on Home page)
+
+
+## Phase 41: Fetch All Cricket API Data (Team Logos, Players, Images)
+- [ ] Explore Cricket API documentation for all available endpoints
+- [ ] Test match_info endpoint to get detailed match data
+- [ ] Test players endpoint to get player lists and images
+- [ ] Add team logos to match cards (from teamInfo)
+- [ ] Display player squads for each match
+- [ ] Add player images and stats
+- [ ] Show match venue images if available
+- [ ] Display all available match metadata
+- [ ] Update UI to show all fetched data beautifully
+
+
+## Phase 42: Push Database Schema and Enable User Features
+- [ ] Push database schema to create all tables (users, matches, teams, leaderboards)
+- [ ] Test user registration flow
+- [ ] Test user login flow
+- [ ] Test team creation functionality
+- [ ] Verify all database tables are created correctly
