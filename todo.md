@@ -369,3 +369,21 @@
 - [x] All pages now use 100% real-time Cricket API data
 - [x] No static/dummy data remaining
 - [x] Ready for testing and deployment
+
+
+## Phase 33: Test Live Match Flow & Real-Time Updates
+- [x] Test Cricket API for current live matches (API working correctly)
+- [ ] Verify match status transitions (upcoming → live → completed)
+- [ ] Test real-time score updates and auto-refresh
+- [x] Test Fantasy Match Points API for points calculation (API working correctly)
+- [ ] Verify leaderboard rankings update correctly
+- [ ] Test complete user flow (create team → match goes live → points calculated → leaderboard updated)
+- [ ] Document any issues found
+- [ ] Fix bugs and deploy
+
+## Phase 34: Fix Missing CRICKET_API_KEY Environment Variable ✅ COMPLETED
+- [x] Add CRICKET_API_KEY to environment variables
+- [x] Restart server to apply the new variable
+- [x] Test matches API endpoint (all 4 tests passed)
+- [x] Verify matches page loads correctly (showing "No Upcoming Matches" is correct - all today's matches are completed)
+- [x] Update documentation about required environment variables
