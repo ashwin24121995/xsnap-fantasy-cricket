@@ -238,11 +238,29 @@ export async function getUserTeams(userId: number) {
   const db = await getDb();
   if (!db) return [];
 
-  const { teams } = await import("../drizzle/schema");
+  const { teams, matches } = await import("../drizzle/schema");
   
+  // Get teams with match information
   const result = await db
-    .select()
+    .select({
+      id: teams.id,
+      name: teams.teamName,
+      captainApiId: teams.captainApiId,
+      viceCaptainApiId: teams.viceCaptainApiId,
+      totalPoints: teams.totalPoints,
+      createdAt: teams.createdAt,
+      match: {
+        id: matches.id,
+        apiMatchId: matches.apiMatchId,
+        name: matches.name,
+        matchType: matches.matchType,
+        status: matches.status,
+        venue: matches.venue,
+        dateTimeGMT: matches.matchDate,
+      },
+    })
     .from(teams)
+    .leftJoin(matches, eq(teams.matchId, matches.id))
     .where(eq(teams.userId, userId))
     .orderBy(desc(teams.createdAt));
   
@@ -336,4 +354,46 @@ export async function getGlobalLeaderboard(limit: number = 100) {
     .limit(limit);
   
   return result;
+}
+
+
+// Get teams by match ID
+export async function getTeamsByMatchId(matchId: number) {
+  const db = await getDb();
+  if (!db) return [];
+
+  const { teams } = await import("../drizzle/schema");
+  
+  const result = await db
+    .select()
+    .from(teams)
+    .where(eq(teams.matchId, matchId));
+  
+  return result;
+}
+
+// Update team total points
+export async function updateTeamPoints(teamId: number, totalPoints: number) {
+  const db = await getDb();
+  if (!db) return;
+
+  const { teams } = await import("../drizzle/schema");
+  
+  await db
+    .update(teams)
+    .set({ totalPoints })
+    .where(eq(teams.id, teamId));
+}
+
+// Update team player points
+export async function updateTeamPlayerPoints(teamPlayerId: number, points: number) {
+  const db = await getDb();
+  if (!db) return;
+
+  const { teamPlayers } = await import("../drizzle/schema");
+  
+  await db
+    .update(teamPlayers)
+    .set({ pointsEarned: points })
+    .where(eq(teamPlayers.id, teamPlayerId));
 }

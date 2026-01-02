@@ -544,3 +544,18 @@
 - [x] Test website loads correctly without errors
 - [x] Verify header shows correct auth state
 - [x] Save checkpoint and push to GitHub
+
+
+## Phase 41: Implement Major Features (My Teams, Points Updates, Match Summary) ✅ COMPLETED
+- [x] Create My Teams page where users can view and manage fantasy teams
+- [x] Show all teams created by user for upcoming/live/completed matches with stats
+- [x] Implement real-time fantasy point updates for completed matches
+- [x] Add captain (2x) and vice-captain (1.5x) multipliers to point calculations
+- [x] Create match summary page for completed games
+- [x] Show final score, player performances, and fantasy point breakdowns
+- [x] Add route for My Teams page in App.tsx
+- [x] Add route for Match Summary page in App.tsx
+- [x] Add tRPC endpoints for points calculation (updateMatchPoints, updateAllCompletedMatches)
+- [x] Add database functions (getTeamsByMatchId, updateTeamPoints, updateTeamPlayerPoints)
+- [ ] Write tests for new features
+- [ ] Save checkpoint and push to GitHub

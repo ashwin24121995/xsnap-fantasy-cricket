@@ -87,6 +87,13 @@ export const matchesRouter = router({
       return await db.getMatchById(input.matchId);
     }),
 
+  // Get match by API ID
+  getByApiId: publicProcedure
+    .input(z.object({ matchApiId: z.string() }))
+    .query(async ({ input }) => {
+      return await db.getMatchByApiId(input.matchApiId);
+    }),
+
   // Get fantasy match points (for completed matches)
   getMatchPoints: publicProcedure
     .input(z.object({ matchApiId: z.string() }))
@@ -101,6 +108,20 @@ export const matchesRouter = router({
     const apiMatches = await cricketApi.getCurrentMatches();
     await db.syncMatches(apiMatches);
     return { success: true, count: apiMatches.length };
+  }),
+
+  // Update fantasy points for a completed match
+  updateMatchPoints: protectedProcedure
+    .input(z.object({ matchApiId: z.string() }))
+    .mutation(async ({ input }) => {
+      const { updateMatchPoints } = await import("./pointsCalculation");
+      return await updateMatchPoints(input.matchApiId);
+    }),
+
+  // Update points for all completed matches
+  updateAllCompletedMatches: protectedProcedure.mutation(async () => {
+    const { updateAllCompletedMatches } = await import("./pointsCalculation");
+    return await updateAllCompletedMatches();
   }),
 });
 

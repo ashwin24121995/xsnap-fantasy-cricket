@@ -21,6 +21,8 @@ import TeamBuilder from "./pages/TeamBuilder";
 import Leaderboard from "./pages/Leaderboard";
 import Profile from "./pages/Profile";
 import Blog from "./pages/Blog";
+import MyTeams from "./pages/MyTeams";
+import MatchSummary from "./pages/MatchSummary";
 
 function Router() {
   return (
@@ -44,7 +46,9 @@ function Router() {
       {/* Protected Pages */}
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/matches" component={Matches} />
+      <Route path="/my-teams" component={MyTeams} />
       <Route path="/team-builder/:matchId?" component={TeamBuilder} />
+      <Route path="/match/:matchId/summary" component={MatchSummary} />
       <Route path="/leaderboard" component={Leaderboard} />
       <Route path="/profile" component={Profile} />
       
