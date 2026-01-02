@@ -48,7 +48,14 @@ function Router() {
       <Route path="/matches" component={Matches} />
       <Route path="/my-teams" component={MyTeams} />
       <Route path="/team-builder/:matchId?" component={TeamBuilder} />
+      <Route path="/match-summary/:matchId" component={MatchSummary} />
       <Route path="/match/:matchId/summary" component={MatchSummary} />
+      <Route path="/matches/:matchId">
+        {(params) => {
+          window.location.href = `/match-summary/${params.matchId}`;
+          return null;
+        }}
+      </Route>
       <Route path="/leaderboard" component={Leaderboard} />
       <Route path="/profile" component={Profile} />
       

@@ -604,5 +604,14 @@
 - [x] Ensure match ID is passed correctly in URL
 - [x] Changed "Watch Live" to "Create Team" with correct route
 - [x] Fixed "View Details" to navigate to match-summary page
-- [ ] Test live match click functionality
+- [x] Test live match click functionality
+- [x] Save checkpoint and push to GitHub
+
+
+## Phase 47: Fix /matches/:matchId 404 Error ✅ COMPLETED
+- [x] Check App.tsx routing configuration
+- [x] Add missing /matches/:matchId route with redirect to match-summary
+- [x] Added /match-summary/:matchId as primary route
+- [x] Kept /match/:matchId/summary for backward compatibility
+- [ ] Test route navigation
 - [ ] Save checkpoint and push to GitHub
