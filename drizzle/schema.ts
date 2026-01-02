@@ -128,8 +128,10 @@ export const teams = mysqlTable("teams", {
   
   // Team details
   teamName: varchar("teamName", { length: 255 }).notNull(),
-  captainId: int("captainId").notNull(),
-  viceCaptainId: int("viceCaptainId").notNull(),
+  captainId: int("captainId"),
+  viceCaptainId: int("viceCaptainId"),
+  captainApiId: varchar("captainApiId", { length: 100 }),
+  viceCaptainApiId: varchar("viceCaptainApiId", { length: 100 }),
   
   // Budget
   totalCredits: decimal("totalCredits", { precision: 10, scale: 2 }).default("100.00").notNull(),
@@ -152,7 +154,8 @@ export const teams = mysqlTable("teams", {
 export const teamPlayers = mysqlTable("teamPlayers", {
   id: int("id").autoincrement().primaryKey(),
   teamId: int("teamId").notNull(),
-  playerId: int("playerId").notNull(),
+  playerId: int("playerId"),
+  playerApiId: varchar("playerApiId", { length: 100 }),
   
   // Player earned points in this team
   pointsEarned: int("pointsEarned").default(0).notNull(),

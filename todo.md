@@ -471,3 +471,48 @@
 - [ ] Test user login flow
 - [ ] Test team creation functionality
 - [ ] Verify all database tables are created correctly
+
+
+## Phase 43: Implement Complete Fantasy Cricket Platform Features 🚀
+
+### Team Builder Interface
+- [ ] Create team builder page with player selection grid
+- [ ] Implement 100 credits budget system
+- [ ] Add player role filters (Batsman, Bowler, All-Rounder, Wicket-Keeper)
+- [ ] Show player stats and recent form
+- [ ] Add captain (2x points) and vice-captain (1.5x points) selection
+- [ ] Validate team composition (min/max players per role)
+- [ ] Save team to database before match deadline
+- [ ] Show team preview with selected players
+
+### Contest System
+- [ ] Create contests table and API endpoints
+- [ ] Auto-create contests for upcoming matches
+- [ ] Allow users to join contests
+- [ ] Display contest details (entry fee, prize pool, participants)
+- [ ] Show user's active contests on dashboard
+- [ ] Update contest status (upcoming → live → completed)
+
+### Points Calculation & Leaderboard
+- [ ] Fetch fantasy points from Cricket API after match completion
+- [ ] Calculate team scores with captain/vice-captain multipliers
+- [ ] Update leaderboard rankings
+- [ ] Create leaderboard page showing top users
+- [ ] Add user rank and total points on dashboard
+- [ ] Show match-wise points breakdown
+
+### User Dashboard Enhancement
+- [ ] Display user's active teams for upcoming matches
+- [ ] Show past performance and total points earned
+- [ ] Add match history with detailed stats
+- [ ] Show leaderboard position and rank
+- [ ] Display active contests with entry status
+
+### Testing & Deployment
+- [ ] Test complete user flow (register → create team → join contest → view results)
+- [ ] Test points calculation with completed matches
+- [ ] Verify leaderboard updates correctly
+- [ ] Test all pages for responsiveness
+- [ ] Save checkpoint
+- [ ] Push to GitHub
+- [ ] Deploy to Railway production

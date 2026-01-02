@@ -123,6 +123,21 @@ export async function getMatchById(matchId: number) {
   return result.length > 0 ? result[0] : null;
 }
 
+export async function getMatchByApiId(apiMatchId: string) {
+  const db = await getDb();
+  if (!db) return null;
+
+  const { matches } = await import("../drizzle/schema");
+  
+  const result = await db
+    .select()
+    .from(matches)
+    .where(eq(matches.apiMatchId, apiMatchId))
+    .limit(1);
+  
+  return result.length > 0 ? result[0] : null;
+}
+
 // ============================================
 // PLAYERS PROCEDURES
 // ============================================
@@ -187,8 +202,8 @@ export async function createTeam(teamData: {
   userId: number;
   matchId: number;
   teamName: string;
-  captainId: number;
-  viceCaptainId: number;
+  captainId: string;
+  viceCaptainId: string;
 }) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
@@ -199,15 +214,15 @@ export async function createTeam(teamData: {
     userId: teamData.userId,
     matchId: teamData.matchId,
     teamName: teamData.teamName,
-    captainId: teamData.captainId,
-    viceCaptainId: teamData.viceCaptainId,
+    captainApiId: teamData.captainId,
+    viceCaptainApiId: teamData.viceCaptainId,
     totalPoints: 0,
   });
   
   return Number(result[0].insertId);
 }
 
-export async function addPlayerToTeam(teamId: number, playerId: number) {
+export async function addPlayerToTeam(teamId: number, playerApiId: string) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
 
@@ -215,7 +230,7 @@ export async function addPlayerToTeam(teamId: number, playerId: number) {
   
   await db.insert(teamPlayers).values({
     teamId,
-    playerId,
+    playerApiId,
   });
 }
 
@@ -255,16 +270,32 @@ export async function getTeamPlayers(teamId: number) {
 
   const { teamPlayers, players } = await import("../drizzle/schema");
   
-  const result = await db
-    .select({
-      player: players,
-      teamPlayer: teamPlayers,
-    })
+  // Get team players with their API IDs
+  const teamPlayerRecords = await db
+    .select()
     .from(teamPlayers)
-    .innerJoin(players, eq(teamPlayers.playerId, players.id))
     .where(eq(teamPlayers.teamId, teamId));
   
-  return result.map(r => r.player);
+  // For each team player, fetch the player details by API ID
+  const playerDetails = [];
+  for (const tp of teamPlayerRecords) {
+    if (tp.playerApiId) {
+      const player = await db
+        .select()
+        .from(players)
+        .where(eq(players.apiPlayerId, tp.playerApiId))
+        .limit(1);
+      
+      if (player.length > 0) {
+        playerDetails.push({
+          ...player[0],
+          pointsEarned: tp.pointsEarned,
+        });
+      }
+    }
+  }
+  
+  return playerDetails;
 }
 
 // ============================================

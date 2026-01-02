@@ -142,26 +142,42 @@ export const teamsRouter = router({
   create: protectedProcedure
     .input(
       z.object({
-        matchId: z.number(),
+        matchApiId: z.string(),
         teamName: z.string().min(1).max(255),
-        captainId: z.number(),
-        viceCaptainId: z.number(),
-        playerIds: z.array(z.number()).min(11).max(11),
+        captainId: z.string(),
+        viceCaptainId: z.string(),
+        playerIds: z.array(z.string()).min(11).max(11),
       })
     )
     .mutation(async ({ ctx, input }) => {
+      // Get or create match in database
+      let match = await db.getMatchByApiId(input.matchApiId);
+      if (!match) {
+        // Fetch match details from Cricket API and sync to database
+        const apiMatches = await cricketApi.getCurrentMatches();
+        const apiMatch = apiMatches.find(m => m.id === input.matchApiId);
+        if (!apiMatch) {
+          throw new Error('Match not found');
+        }
+        await db.syncMatches([apiMatch]);
+        match = await db.getMatchByApiId(input.matchApiId);
+        if (!match) {
+          throw new Error('Failed to create match in database');
+        }
+      }
+
       // Create team
       const teamId = await db.createTeam({
         userId: ctx.user.id,
-        matchId: input.matchId,
+        matchId: match.id,
         teamName: input.teamName,
         captainId: input.captainId,
         viceCaptainId: input.viceCaptainId,
       });
 
-      // Add players to team
-      for (const playerId of input.playerIds) {
-        await db.addPlayerToTeam(teamId, playerId);
+      // Add players to team (store player API IDs)
+      for (const playerApiId of input.playerIds) {
+        await db.addPlayerToTeam(teamId, playerApiId);
       }
 
       return { teamId, success: true };

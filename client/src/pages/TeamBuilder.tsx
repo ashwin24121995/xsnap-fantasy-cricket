@@ -90,7 +90,7 @@ export default function TeamBuilder() {
 
     try {
       await createTeamMutation.mutateAsync({
-        matchId,
+        matchApiId,
         teamName: teamName.trim(),
         captainId,
         viceCaptainId,
