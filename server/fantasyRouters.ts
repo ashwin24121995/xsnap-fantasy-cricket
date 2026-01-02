@@ -240,3 +240,15 @@ export const leaderboardRouter = router({
       return await db.getGlobalLeaderboard(input.limit);
     }),
 });
+
+
+// ============================================
+// USERS ROUTER
+// ============================================
+
+export const usersRouter = router({
+  // Get user statistics for dashboard
+  getStats: protectedProcedure.query(async ({ ctx }) => {
+    return await db.getUserStats(ctx.user.id);
+  }),
+});

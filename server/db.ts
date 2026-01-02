@@ -249,6 +249,7 @@ export async function getUserTeams(userId: number) {
       viceCaptainApiId: teams.viceCaptainApiId,
       totalPoints: teams.totalPoints,
       createdAt: teams.createdAt,
+      matchStatus: matches.status,
       match: {
         id: matches.id,
         apiMatchId: matches.apiMatchId,
@@ -396,4 +397,23 @@ export async function updateTeamPlayerPoints(teamPlayerId: number, points: numbe
     .update(teamPlayers)
     .set({ pointsEarned: points })
     .where(eq(teamPlayers.id, teamPlayerId));
+}
+
+// Get user statistics for dashboard
+export async function getUserStats(userId: number) {
+  const teams = await getUserTeams(userId);
+  
+  const totalTeams = teams.length;
+  const completedTeams = teams.filter(t => t.match?.status === 'Completed');
+  const matchesPlayed = completedTeams.length;
+  const totalPoints = completedTeams.reduce((sum, t) => sum + (t.totalPoints || 0), 0);
+  const avgPoints = matchesPlayed > 0 ? totalPoints / matchesPlayed : 0;
+  const bestScore = teams.length > 0 ? Math.max(...teams.map(t => t.totalPoints || 0)) : 0;
+  
+  return {
+    totalTeams,
+    matchesPlayed,
+    avgPoints,
+    bestScore,
+  };
 }
