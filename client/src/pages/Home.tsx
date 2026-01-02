@@ -355,7 +355,7 @@ export default function Home() {
                   Learn & Have Fun!
                 </h1>
                 <p className="text-lg text-muted-foreground max-w-xl">
-                  India's premier free-to-play fantasy cricket platform. Build your dream team, compete with friends, and master the game of cricket strategy.
+                  A free-to-play fantasy cricket platform. Build your dream team, compete on leaderboards, and master the game of cricket strategy.
                 </p>
               </div>
 
@@ -772,7 +772,7 @@ export default function Home() {
                 <div>
                   <h4 className="font-bold mb-2">Track Your Progress</h4>
                   <p className="text-sm text-muted-foreground">
-                    Detailed analytics and performance tracking for continuous improvement
+                    Performance tracking and statistics for continuous improvement
                   </p>
                 </div>
               </div>
@@ -800,9 +800,9 @@ export default function Home() {
                   <Gamepad2 className="h-6 w-6 text-cyan-600" />
                 </div>
                 <div>
-                  <h4 className="font-bold mb-2">Multiple Contests</h4>
+                  <h4 className="font-bold mb-2">Multiple Formats</h4>
                   <p className="text-sm text-muted-foreground">
-                    Participate in various contests and leagues across all formats
+                    Play across T20, ODI, and Test match formats
                   </p>
                 </div>
               </div>
@@ -903,11 +903,11 @@ export default function Home() {
               <div className="space-y-4">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
-                    <MessageCircle className="h-6 w-6" />
+                    <Star className="h-6 w-6" />
                   </div>
                   <div>
-                    <p className="font-semibold">Active Discussions</p>
-                    <p className="text-sm text-blue-100">Share tips and strategies</p>
+                    <p className="font-semibold">Learn & Improve</p>
+                    <p className="text-sm text-blue-100">Master fantasy cricket strategies</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
