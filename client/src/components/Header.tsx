@@ -73,6 +73,9 @@ export function Header() {
             <div className="h-9 w-24 animate-pulse bg-muted rounded"></div>
           ) : user ? (
             <>
+              <Link href="/dashboard">
+                <Button variant="ghost">Dashboard</Button>
+              </Link>
               <Link href="/my-teams">
                 <Button variant="ghost">My Teams</Button>
               </Link>
@@ -151,6 +154,11 @@ export function Header() {
             <div className="pt-4 space-y-2">
               {user ? (
                 <>
+                  <Link href="/dashboard">
+                    <Button variant="outline" className="w-full" onClick={() => setMobileMenuOpen(false)}>
+                      Dashboard
+                    </Button>
+                  </Link>
                   <Link href="/my-teams">
                     <Button variant="outline" className="w-full" onClick={() => setMobileMenuOpen(false)}>
                       My Teams
