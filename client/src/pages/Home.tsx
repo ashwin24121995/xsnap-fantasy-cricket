@@ -124,16 +124,16 @@ function LiveMatchesSection() {
                   size="sm" 
                   variant="outline" 
                   className="flex-1"
-                  onClick={() => navigate(`/matches/${match.id}`)}
+                  onClick={() => navigate(`/match-summary/${match.id}`)}
                 >
                   View Details
                 </Button>
                 <Button 
                   size="sm" 
                   className="flex-1 bg-red-500 hover:bg-red-600"
-                  onClick={() => navigate(`/matches/${match.id}/create-team`)}
+                  onClick={() => navigate(`/team-builder?matchId=${match.id}`)}
                 >
-                  Watch Live
+                  Create Team
                 </Button>
               </div>
             </Card>
