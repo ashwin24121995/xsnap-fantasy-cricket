@@ -38,6 +38,83 @@ const heroImages = [
   "/hero-cricket-4.webp"
 ];
 
+function LiveMatchesSection() {
+  const [, navigate] = useLocation();
+  // Get live matches (currently in progress)
+  const { data: matches, isLoading } = trpc.matches.getLive.useQuery(
+    undefined,
+    {
+      refetchInterval: 30 * 1000, // Refresh every 30 seconds for live matches
+      refetchOnWindowFocus: true,
+    }
+  );
+
+  // Don't show section if no live matches
+  if (isLoading || !matches || matches.length === 0) {
+    return null;
+  }
+
+  return (
+    <section className="py-20 bg-white">
+      <div className="container">
+        <div className="text-center mb-16">
+          <Badge className="mb-4 bg-red-500 text-white animate-pulse">🔴 Live Now</Badge>
+          <h2 className="text-4xl font-bold mb-4">Live Matches</h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Watch these matches happening right now and track your team's performance
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          {matches.slice(0, 4).map((match) => (
+            <Card key={match.id} className="p-6 hover:shadow-lg transition-shadow border-2 border-red-500/20">
+              <div className="flex items-start justify-between mb-4">
+                <Badge variant="outline" className="text-xs">{match.matchType}</Badge>
+                <Badge className="bg-red-500 text-white text-xs animate-pulse">LIVE</Badge>
+              </div>
+              
+              <h3 className="font-bold text-lg mb-3">{match.name}</h3>
+              
+              <div className="flex items-center justify-center gap-4 mb-4">
+                <div className="text-center">
+                  <p className="font-bold text-sm">{match.teams[0]}</p>
+                </div>
+                <span className="text-muted-foreground font-bold">vs</span>
+                <div className="text-center">
+                  <p className="font-bold text-sm">{match.teams[1]}</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
+                <MapPin className="h-4 w-4" />
+                <span>{match.venue}</span>
+              </div>
+
+              <div className="flex gap-2">
+                <Button 
+                  size="sm" 
+                  variant="outline" 
+                  className="flex-1"
+                  onClick={() => navigate(`/matches/${match.id}`)}
+                >
+                  View Details
+                </Button>
+                <Button 
+                  size="sm" 
+                  className="flex-1 bg-red-500 hover:bg-red-600"
+                  onClick={() => navigate(`/matches/${match.id}/create-team`)}
+                >
+                  Watch Live
+                </Button>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function UpcomingMatchesSection() {
   const [, navigate] = useLocation();
   // Get real-time upcoming matches from Cricket API (auto-refresh every 5 min)
@@ -378,45 +455,8 @@ export default function Home() {
       {/* Live Match Updates Section */}
       <UpcomingMatchesSection />
 
-      {/* Player Spotlight Section */}
-      <section className="py-20 bg-white">
-        <div className="container">
-          <div className="text-center mb-16">
-            <Badge className="mb-4">Featured Players</Badge>
-            <h2 className="text-4xl font-bold mb-4">Player Spotlight</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Discover top-performing cricket players and build your winning team
-            </p>
-          </div>
-
-          {/* API Integration Placeholder */}
-          <Card className="p-12 text-center border-2 border-dashed">
-            <div className="max-w-md mx-auto">
-              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-accent to-yellow-500 flex items-center justify-center mx-auto mb-6">
-                <Star className="h-10 w-10 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4">Player Data Coming Soon</h3>
-              <p className="text-muted-foreground mb-6">
-                Connect your cricket API to showcase featured players with statistics, recent form, and performance metrics here.
-              </p>
-              <div className="flex flex-wrap gap-3 justify-center">
-                <Badge variant="outline" className="px-4 py-2">
-                  <BarChart3 className="mr-2 h-4 w-4" />
-                  Player Stats
-                </Badge>
-                <Badge variant="outline" className="px-4 py-2">
-                  <TrendingUp className="mr-2 h-4 w-4" />
-                  Recent Form
-                </Badge>
-                <Badge variant="outline" className="px-4 py-2">
-                  <Award className="mr-2 h-4 w-4" />
-                  Top Performers
-                </Badge>
-              </div>
-            </div>
-          </Card>
-        </div>
-      </section>
+      {/* Live Matches Section */}
+      <LiveMatchesSection />
 
 
       {/* Game Formats Section */}

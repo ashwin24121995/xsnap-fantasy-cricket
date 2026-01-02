@@ -527,8 +527,20 @@
 - [x] Push to GitHub (https://github.com/ashwin24121995/xsnap-fantasy-cricket)
 
 
-## Phase 39: Fix Railway Deployment Error
-- [ ] Fix nixpacks.toml Node.js version (nodejs-22_x not available in Nix)
-- [ ] Update to compatible Node.js version
-- [ ] Commit and push to GitHub
-- [ ] Verify Railway deployment succeeds
+## Phase 39: Fix Railway Deployment Error ✅ COMPLETED
+- [x] Fix nixpacks.toml Node.js version (nodejs-22_x not available in Nix)
+- [x] Update to compatible Node.js version (changed to nodejs_20)
+- [x] Fix railway.json to remove db:push (database already exists)
+- [x] Commit and push to GitHub
+- [ ] Verify Railway deployment succeeds (waiting for Railway to rebuild)
+
+
+## Phase 40: Fix Multiple Website Issues ✅ COMPLETED
+- [x] Replace "Player Spotlight" section with live matches on homepage
+- [x] Fix header to dynamically show user info after login (currently shows "Login" even after logged in)
+- [x] Create useAuth hook for authentication state
+- [x] Create LiveMatchesSection component with 30s auto-refresh
+- [x] Add user dropdown menu with Profile, My Teams, and Logout options
+- [x] Test website loads correctly without errors
+- [x] Verify header shows correct auth state
+- [x] Save checkpoint and push to GitHub

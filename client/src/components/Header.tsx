@@ -1,14 +1,30 @@
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, User, LogOut } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { useTranslation } from "react-i18next";
+import { useAuth } from "@/hooks/useAuth";
+import { trpc } from "@/lib/trpc";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export function Header() {
   const { t } = useTranslation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [location] = useLocation();
+  const [location, navigate] = useLocation();
+  const { user, isLoading: authLoading } = useAuth();
+  const logoutMutation = trpc.auth.logout.useMutation({
+    onSuccess: () => {
+      window.location.href = '/';
+    },
+  });
 
   const navigation = [
     { name: t("header.home"), href: "/" },
@@ -53,12 +69,51 @@ export function Header() {
         {/* Desktop Auth Buttons */}
         <div className="hidden md:flex md:items-center md:space-x-4">
           <LanguageSwitcher />
-          <Link href="/login">
-            <Button variant="ghost">{t("header.login")}</Button>
-          </Link>
-          <Link href="/register">
-            <Button>{t("header.getStarted")}</Button>
-          </Link>
+          {authLoading ? (
+            <div className="h-9 w-24 animate-pulse bg-muted rounded"></div>
+          ) : user ? (
+            <>
+              <Link href="/my-teams">
+                <Button variant="ghost">My Teams</Button>
+              </Link>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" size="sm">
+                    <User className="h-4 w-4 mr-2" />
+                    {user.name || 'User'}
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={() => navigate('/profile')}>
+                    <User className="h-4 w-4 mr-2" />
+                    Profile
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate('/my-teams')}>
+                    My Teams
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem 
+                    onClick={() => logoutMutation.mutate()}
+                    disabled={logoutMutation.isPending}
+                  >
+                    <LogOut className="h-4 w-4 mr-2" />
+                    {logoutMutation.isPending ? 'Logging out...' : 'Logout'}
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </>
+          ) : (
+            <>
+              <Link href="/login">
+                <Button variant="ghost">{t("header.login")}</Button>
+              </Link>
+              <Link href="/register">
+                <Button>{t("header.getStarted")}</Button>
+              </Link>
+            </>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -94,16 +149,46 @@ export function Header() {
               </Link>
             ))}
             <div className="pt-4 space-y-2">
-              <Link href="/login">
-                <Button variant="outline" className="w-full" onClick={() => setMobileMenuOpen(false)}>
-                  Login
-                </Button>
-              </Link>
-              <Link href="/register">
-                <Button className="w-full glossy-btn" onClick={() => setMobileMenuOpen(false)}>
-                  Get Started
-                </Button>
-              </Link>
+              {user ? (
+                <>
+                  <Link href="/my-teams">
+                    <Button variant="outline" className="w-full" onClick={() => setMobileMenuOpen(false)}>
+                      My Teams
+                    </Button>
+                  </Link>
+                  <Link href="/profile">
+                    <Button variant="outline" className="w-full" onClick={() => setMobileMenuOpen(false)}>
+                      <User className="h-4 w-4 mr-2" />
+                      {user.name || 'Profile'}
+                    </Button>
+                  </Link>
+                  <Button 
+                    variant="destructive" 
+                    className="w-full" 
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      logoutMutation.mutate();
+                    }}
+                    disabled={logoutMutation.isPending}
+                  >
+                    <LogOut className="h-4 w-4 mr-2" />
+                    {logoutMutation.isPending ? 'Logging out...' : 'Logout'}
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Link href="/login">
+                    <Button variant="outline" className="w-full" onClick={() => setMobileMenuOpen(false)}>
+                      Login
+                    </Button>
+                  </Link>
+                  <Link href="/register">
+                    <Button className="w-full glossy-btn" onClick={() => setMobileMenuOpen(false)}>
+                      Get Started
+                    </Button>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>
