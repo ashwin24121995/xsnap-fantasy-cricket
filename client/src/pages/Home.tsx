@@ -92,6 +92,11 @@ function LiveMatchesSection() {
                   <p className="font-bold text-sm text-center">
                     {match.teamInfo && match.teamInfo[0]?.shortname ? match.teamInfo[0].shortname : match.teams[0]}
                   </p>
+                  {match.score && match.score[0] && (
+                    <p className="text-lg font-bold text-red-600">
+                      {match.score[0].r}/{match.score[0].w} ({match.score[0].o})
+                    </p>
+                  )}
                 </div>
                 
                 <span className="text-2xl font-bold text-muted-foreground">vs</span>
@@ -111,8 +116,22 @@ function LiveMatchesSection() {
                   <p className="font-bold text-sm text-center">
                     {match.teamInfo && match.teamInfo[1]?.shortname ? match.teamInfo[1].shortname : match.teams[1]}
                   </p>
+                  {match.score && match.score[1] && (
+                    <p className="text-lg font-bold text-red-600">
+                      {match.score[1].r}/{match.score[1].w} ({match.score[1].o})
+                    </p>
+                  )}
                 </div>
               </div>
+              
+              {/* Match Status */}
+              {match.matchStatus && (
+                <div className="bg-red-50 border border-red-200 rounded-lg p-3 mb-4">
+                  <p className="text-sm font-medium text-red-800 text-center">
+                    {match.matchStatus}
+                  </p>
+                </div>
+              )}
 
               <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
                 <MapPin className="h-4 w-4" />

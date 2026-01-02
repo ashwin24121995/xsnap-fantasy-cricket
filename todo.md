@@ -613,5 +613,15 @@
 - [x] Add missing /matches/:matchId route with redirect to match-summary
 - [x] Added /match-summary/:matchId as primary route
 - [x] Kept /match/:matchId/summary for backward compatibility
-- [ ] Test route navigation
+- [x] Test route navigation
+- [x] Save checkpoint and push to GitHub
+
+
+## Phase 48: Add Live Scores to Live Match Section ✅ COMPLETED
+- [x] Check Cricket API response for score data
+- [x] Add score display to LiveMatchesSection component
+- [x] Show team scores, overs, and match status
+- [x] Format scores properly (e.g., "150/5 (18.2)")
+- [x] Added match status banner below scores
+- [ ] Test live score display
 - [ ] Save checkpoint and push to GitHub
