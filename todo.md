@@ -524,3 +524,11 @@
 - [x] Replace all Link wrappers with onClick navigate handlers
 - [x] Test homepage for errors
 - [x] Save checkpoint
+- [x] Push to GitHub (https://github.com/ashwin24121995/xsnap-fantasy-cricket)
+
+
+## Phase 39: Fix Railway Deployment Error
+- [ ] Fix nixpacks.toml Node.js version (nodejs-22_x not available in Nix)
+- [ ] Update to compatible Node.js version
+- [ ] Commit and push to GitHub
+- [ ] Verify Railway deployment succeeds
