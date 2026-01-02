@@ -557,5 +557,14 @@
 - [x] Add route for Match Summary page in App.tsx
 - [x] Add tRPC endpoints for points calculation (updateMatchPoints, updateAllCompletedMatches)
 - [x] Add database functions (getTeamsByMatchId, updateTeamPoints, updateTeamPlayerPoints)
-- [ ] Write tests for new features
-- [ ] Save checkpoint and push to GitHub
+- [ ] Write tests for new features (can be added later)
+- [x] Save checkpoint and push to GitHub
+
+
+## Phase 42: Fix Dynamic CTA Buttons Based on Auth State ✅ COMPLETED
+- [x] Update homepage CTA buttons to check authentication state
+- [x] Change "Create Account" to "View My Teams" for logged-in users
+- [x] Update "Start Playing Free" to "Browse Matches" for logged-in users
+- [x] Update "Get Started Now" to "Create Your Team" for logged-in users
+- [x] Test button behavior for both logged-in and logged-out states
+- [x] Save checkpoint and push to GitHub

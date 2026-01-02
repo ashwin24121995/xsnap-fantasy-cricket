@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Link, useLocation } from "wouter";
+import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
 import { format } from "date-fns";
@@ -241,6 +242,7 @@ function UpcomingMatchesSection() {
 export default function Home() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [, navigate] = useLocation();
+  const { user } = useAuth();
 
   // Auto-rotate images every 5 seconds
   useEffect(() => {
@@ -284,8 +286,12 @@ export default function Home() {
 
               {/* CTA Buttons */}
               <div className="flex flex-wrap gap-4">
-                <Button size="lg" className="glossy-button group" onClick={() => navigate('/register')}>
-                  Start Playing Free
+                <Button 
+                  size="lg" 
+                  className="glossy-button group" 
+                  onClick={() => navigate(user ? '/matches' : '/register')}
+                >
+                  {user ? 'Browse Matches' : 'Start Playing Free'}
                   <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
                 <Button size="lg" variant="outline" className="border-2" onClick={() => navigate('/how-to-play')}>
@@ -613,8 +619,12 @@ export default function Home() {
           </div>
 
           <div className="text-center mt-12">
-            <Button size="lg" className="glossy-button" onClick={() => navigate('/register')}>
-              Get Started Now
+            <Button 
+              size="lg" 
+              className="glossy-button" 
+              onClick={() => navigate(user ? '/matches' : '/register')}
+            >
+              {user ? 'Create Your Team' : 'Get Started Now'}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </div>
@@ -882,8 +892,12 @@ export default function Home() {
             Join our platform and start learning cricket strategy through our free-to-play fantasy cricket experience
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Button size="lg" className="glossy-button" onClick={() => navigate('/register')}>
-              Create Free Account
+            <Button 
+              size="lg" 
+              className="glossy-button" 
+              onClick={() => navigate(user ? '/my-teams' : '/register')}
+            >
+              {user ? 'View My Teams' : 'Create Free Account'}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
             <Button size="lg" variant="outline" className="border-2" onClick={() => navigate('/about')}>
