@@ -76,13 +76,41 @@ function LiveMatchesSection() {
               
               <h3 className="font-bold text-lg mb-3">{match.name}</h3>
               
-              <div className="flex items-center justify-center gap-4 mb-4">
-                <div className="text-center">
-                  <p className="font-bold text-sm">{match.teams[0]}</p>
+              <div className="flex items-center justify-center gap-6 mb-4">
+                {/* Team 1 */}
+                <div className="flex flex-col items-center gap-2 flex-1">
+                  {match.teamInfo && match.teamInfo[0]?.img && (
+                    <img 
+                      src={match.teamInfo[0].img} 
+                      alt={match.teamInfo[0].name}
+                      className="w-12 h-12 object-contain"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                      }}
+                    />
+                  )}
+                  <p className="font-bold text-sm text-center">
+                    {match.teamInfo && match.teamInfo[0]?.shortname ? match.teamInfo[0].shortname : match.teams[0]}
+                  </p>
                 </div>
-                <span className="text-muted-foreground font-bold">vs</span>
-                <div className="text-center">
-                  <p className="font-bold text-sm">{match.teams[1]}</p>
+                
+                <span className="text-2xl font-bold text-muted-foreground">vs</span>
+                
+                {/* Team 2 */}
+                <div className="flex flex-col items-center gap-2 flex-1">
+                  {match.teamInfo && match.teamInfo[1]?.img && (
+                    <img 
+                      src={match.teamInfo[1].img} 
+                      alt={match.teamInfo[1].name}
+                      className="w-12 h-12 object-contain"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                      }}
+                    />
+                  )}
+                  <p className="font-bold text-sm text-center">
+                    {match.teamInfo && match.teamInfo[1]?.shortname ? match.teamInfo[1].shortname : match.teams[1]}
+                  </p>
                 </div>
               </div>
 
@@ -195,12 +223,40 @@ function UpcomingMatchesSection() {
                 <h3 className="text-lg font-bold mb-3">{match.name}</h3>
                 
                 {/* Teams */}
-                <div className="flex items-center justify-center space-x-4 mb-4">
+                <div className="flex items-center justify-center space-x-6 mb-4">
                   {teamInfo.length >= 2 ? (
                     <>
-                      <span className="font-semibold text-sm">{teamInfo[0].shortname || teams[0]}</span>
-                      <span className="text-muted-foreground">vs</span>
-                      <span className="font-semibold text-sm">{teamInfo[1].shortname || teams[1]}</span>
+                      {/* Team 1 */}
+                      <div className="flex flex-col items-center gap-2 flex-1">
+                        {teamInfo[0].img && (
+                          <img 
+                            src={teamInfo[0].img} 
+                            alt={teamInfo[0].name}
+                            className="w-12 h-12 object-contain"
+                            onError={(e) => {
+                              e.currentTarget.style.display = 'none';
+                            }}
+                          />
+                        )}
+                        <span className="font-semibold text-sm text-center">{teamInfo[0].shortname || teams[0]}</span>
+                      </div>
+                      
+                      <span className="text-2xl font-bold text-muted-foreground">vs</span>
+                      
+                      {/* Team 2 */}
+                      <div className="flex flex-col items-center gap-2 flex-1">
+                        {teamInfo[1].img && (
+                          <img 
+                            src={teamInfo[1].img} 
+                            alt={teamInfo[1].name}
+                            className="w-12 h-12 object-contain"
+                            onError={(e) => {
+                              e.currentTarget.style.display = 'none';
+                            }}
+                          />
+                        )}
+                        <span className="font-semibold text-sm text-center">{teamInfo[1].shortname || teams[1]}</span>
+                      </div>
                     </>
                   ) : (
                     <span className="font-semibold text-sm">{teams.join(' vs ')}</span>
