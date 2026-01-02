@@ -516,3 +516,11 @@
 - [ ] Save checkpoint
 - [ ] Push to GitHub
 - [ ] Deploy to Railway production
+
+
+## Phase 38: Fix Nested Anchor Tag Error (Again) ✅ COMPLETED
+- [x] Identify nested `<a>` tags on homepage causing React validation error
+- [x] Fix nested anchor tags (hero section CTA buttons and other sections)
+- [x] Replace all Link wrappers with onClick navigate handlers
+- [x] Test homepage for errors
+- [x] Save checkpoint

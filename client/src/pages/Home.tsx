@@ -163,6 +163,7 @@ function UpcomingMatchesSection() {
 
 export default function Home() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [, navigate] = useLocation();
 
   // Auto-rotate images every 5 seconds
   useEffect(() => {
@@ -206,17 +207,13 @@ export default function Home() {
 
               {/* CTA Buttons */}
               <div className="flex flex-wrap gap-4">
-                <Link href="/register">
-                  <Button size="lg" className="glossy-button group">
-                    Start Playing Free
-                    <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                </Link>
-                <Link href="/how-to-play">
-                  <Button size="lg" variant="outline" className="border-2">
-                    How It Works
-                  </Button>
-                </Link>
+                <Button size="lg" className="glossy-button group" onClick={() => navigate('/register')}>
+                  Start Playing Free
+                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                </Button>
+                <Button size="lg" variant="outline" className="border-2" onClick={() => navigate('/how-to-play')}>
+                  How It Works
+                </Button>
               </div>
 
               {/* Feature Pills */}
@@ -576,12 +573,10 @@ export default function Home() {
           </div>
 
           <div className="text-center mt-12">
-            <Link href="/register">
-              <Button size="lg" className="glossy-button">
-                Get Started Now
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
+            <Button size="lg" className="glossy-button" onClick={() => navigate('/register')}>
+              Get Started Now
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
           </div>
         </div>
       </section>
@@ -761,12 +756,10 @@ export default function Home() {
           </div>
 
           <div className="text-center mt-12">
-            <Link href="/faq">
-              <Button variant="outline" size="lg">
-                View All FAQs
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
+            <Button variant="outline" size="lg" onClick={() => navigate('/faq')}>
+              View All FAQs
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
           </div>
         </div>
       </section>
@@ -849,17 +842,13 @@ export default function Home() {
             Join our platform and start learning cricket strategy through our free-to-play fantasy cricket experience
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/register">
-              <Button size="lg" className="glossy-button">
-                Create Free Account
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
-            <Link href="/about">
-              <Button size="lg" variant="outline" className="border-2">
-                Learn More About Us
-              </Button>
-            </Link>
+            <Button size="lg" className="glossy-button" onClick={() => navigate('/register')}>
+              Create Free Account
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+            <Button size="lg" variant="outline" className="border-2" onClick={() => navigate('/about')}>
+              Learn More About Us
+            </Button>
           </div>
         </div>
       </section>
