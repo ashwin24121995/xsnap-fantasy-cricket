@@ -42,11 +42,12 @@ const heroImages = [
 function LiveMatchesSection() {
   const [, navigate] = useLocation();
   // Get live matches (currently in progress)
-  const { data: matches, isLoading } = trpc.matches.getLive.useQuery(
+  const { data: matches, isLoading, dataUpdatedAt } = trpc.matches.getLive.useQuery(
     undefined,
     {
-      refetchInterval: 30 * 1000, // Refresh every 30 seconds for live matches
+      refetchInterval: 10 * 1000, // Refresh every 10 seconds for real-time updates
       refetchOnWindowFocus: true,
+      refetchIntervalInBackground: true, // Keep updating even when tab is not focused
     }
   );
 
@@ -63,6 +64,10 @@ function LiveMatchesSection() {
           <h2 className="text-4xl font-bold mb-4">Live Matches</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Watch these matches happening right now and track your team's performance
+          </p>
+          <p className="text-xs text-muted-foreground mt-2">
+            <Clock className="inline h-3 w-3 mr-1" />
+            Updates every 10 seconds • Last updated: {new Date(dataUpdatedAt).toLocaleTimeString()}
           </p>
         </div>
 
