@@ -47,6 +47,12 @@ export const matchesRouter = router({
   getLive: publicProcedure.query(async () => {
     const apiMatches = await cricketApi.getCurrentMatches();
     const liveMatches = cricketApi.filterLiveMatches(apiMatches);
+    
+    // Sync live matches to database for real-time score tracking
+    if (liveMatches.length > 0) {
+      await db.syncMatches(liveMatches);
+    }
+    
     return liveMatches;
   }),
 
@@ -54,6 +60,12 @@ export const matchesRouter = router({
   getCompleted: publicProcedure.query(async () => {
     const apiMatches = await cricketApi.getCurrentMatches();
     const completedMatches = cricketApi.filterCompletedMatches(apiMatches);
+    
+    // Sync completed matches to database so they can be viewed later
+    if (completedMatches.length > 0) {
+      await db.syncMatches(completedMatches);
+    }
+    
     return completedMatches;
   }),
 

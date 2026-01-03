@@ -50,6 +50,7 @@ function Router() {
       <Route path="/team-builder/:matchId?" component={TeamBuilder} />
       <Route path="/match-summary/:matchId" component={MatchSummary} />
       <Route path="/match/:matchId/summary" component={MatchSummary} />
+      <Route path="/match/:matchId" component={MatchSummary} />
       <Route path="/matches/:matchId">
         {(params) => {
           window.location.href = `/match-summary/${params.matchId}`;

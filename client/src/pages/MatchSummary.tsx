@@ -15,10 +15,21 @@ export default function MatchSummary() {
   const [, navigate] = useLocation();
   const matchApiId = params.matchId;
 
-  const { data: match, isLoading: matchLoading } = trpc.matches.getByApiId.useQuery(
+  // Fetch match from database (for basic info)
+  const { data: dbMatch, isLoading: dbLoading } = trpc.matches.getByApiId.useQuery(
     { matchApiId: matchApiId || "" },
     { enabled: !!matchApiId }
   );
+
+  // Fetch detailed match info from Cricket API (for complete data)
+  const { data: apiMatch, isLoading: apiLoading } = trpc.matches.getMatchInfo.useQuery(
+    { matchId: matchApiId || "" },
+    { enabled: !!matchApiId }
+  );
+
+  // Use API data if available, fallback to DB data
+  const match = apiMatch || dbMatch;
+  const matchLoading = dbLoading || apiLoading;
 
   const { data: matchPoints, isLoading: pointsLoading } = trpc.matches.getMatchPoints.useQuery(
     { matchApiId: matchApiId || "" },
@@ -60,9 +71,10 @@ export default function MatchSummary() {
     );
   }
 
-  const matchDate = match.matchDate ? new Date(match.matchDate) : null;
-  const teams = JSON.parse(match.teams || "[]");
-  const score = JSON.parse(match.score || "[]");
+  // Handle both API format (dateTimeGMT, teams array) and DB format (matchDate, teams JSON string)
+  const matchDate = match.dateTimeGMT ? new Date(match.dateTimeGMT) : (match.matchDate ? new Date(match.matchDate) : null);
+  const teams = typeof match.teams === 'string' ? JSON.parse(match.teams || "[]") : (match.teams || []);
+  const score = typeof match.score === 'string' ? JSON.parse(match.score || "[]") : (match.score || []);
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-primary/5 via-white to-accent/5">
