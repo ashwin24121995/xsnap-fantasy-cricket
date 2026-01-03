@@ -748,3 +748,11 @@
 - [x] Enhance Responsible Gaming with comprehensive resources and support
 - [x] Test all pages for completeness and clarity
 - [x] Save checkpoint and push to GitHub
+
+## Phase 58: Fix Copyright Year & Scroll-to-Top ✅ COMPLETED
+- [x] Find all hardcoded "2024" copyright references
+- [x] Update Footer copyright to use dynamic new Date().getFullYear()
+- [x] Update all pages with hardcoded "2024" to use current year
+- [x] Add useEffect scroll-to-top on all page components
+- [x] Test copyright shows 2026 (current year)
+- [x] Test all pages scroll to top when navigating

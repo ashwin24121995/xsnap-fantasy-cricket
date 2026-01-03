@@ -39,7 +39,7 @@ export default function About() {
                   their cricket knowledge and strategic thinking without financial risk.
                 </p>
                 <p>
-                  Founded in 2024 by XSNAP IMAGING PRIVATE LIMITED, we set out to create something different—a platform 
+                  Founded in 2019 by XSNAP IMAGING PRIVATE LIMITED, we set out to create something different—a platform 
                   where cricket strategy, player analysis, and match prediction skills take center stage, not wallet size. 
                   We believe that the joy of fantasy cricket should be accessible to everyone, from college students learning 
                   the game to seasoned cricket analysts honing their skills.
@@ -223,7 +223,7 @@ export default function About() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-lg mb-2">Founded</h3>
-                    <p className="text-muted-foreground">2019 (Fantasy Cricket Platform launched 2024)</p>
+                    <p className="text-muted-foreground">2019 (Fantasy Cricket Platform launched 2025)</p>
                   </div>
                 </div>
                 <div className="space-y-4">

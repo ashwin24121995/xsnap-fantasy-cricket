@@ -1025,7 +1025,7 @@ export default function Home() {
           </div>
           <div className="border-t border-gray-800 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
-              <p>© 2024 XSNAP IMAGING PRIVATE LIMITED. All rights reserved.</p>
+              <p>© {new Date().getFullYear()} XSNAP IMAGING PRIVATE LIMITED. All rights reserved.</p>
               <div className="flex items-center gap-4">
                 <Badge variant="secondary">18+</Badge>
                 <Badge variant="secondary">Fair Play</Badge>
