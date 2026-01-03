@@ -6,14 +6,41 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 import { Star, Shield, Trophy, AlertCircle } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function TeamBuilder() {
+  const { user, isLoading: authLoading } = useAuth();
   const [, setLocation] = useLocation();
+  
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    if (!authLoading && !user) {
+      toast.error("Please login to create a team");
+      setLocation("/login?redirect=/team-builder" + window.location.search);
+    }
+  }, [user, authLoading, setLocation]);
+  
+  // Show loading while checking authentication
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-primary/5 to-white">
+        <Header />
+        <div className="container py-20 text-center">
+          <p className="text-lg text-muted-foreground">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+  
+  // Don't render if not authenticated (will redirect)
+  if (!user) {
+    return null;
+  }
   // Get matchId from URL query params (e.g., /team-builder?matchId=abc-123)
   const searchParams = new URLSearchParams(window.location.search);
   const matchApiId = searchParams.get('matchId') || '';

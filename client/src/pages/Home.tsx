@@ -45,7 +45,7 @@ function LiveMatchesSection() {
   const { data: matches, isLoading, dataUpdatedAt } = trpc.matches.getLive.useQuery(
     undefined,
     {
-      refetchInterval: 10 * 1000, // Refresh every 10 seconds for real-time updates
+      refetchInterval: 3 * 1000, // Refresh every 3 seconds for real-time updates
       refetchOnWindowFocus: true,
       refetchIntervalInBackground: true, // Keep updating even when tab is not focused
     }
@@ -67,7 +67,7 @@ function LiveMatchesSection() {
           </p>
           <p className="text-xs text-muted-foreground mt-2">
             <Clock className="inline h-3 w-3 mr-1" />
-            Updates every 10 seconds • Last updated: {new Date(dataUpdatedAt).toLocaleTimeString()}
+            Updates every 3 seconds • Last updated: {new Date(dataUpdatedAt).toLocaleTimeString()}
           </p>
         </div>
 

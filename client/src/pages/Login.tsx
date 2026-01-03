@@ -15,11 +15,15 @@ export default function Login() {
     email: "",
     password: "",
   });
+  
+  // Get redirect parameter from URL
+  const searchParams = new URLSearchParams(window.location.search);
+  const redirectUrl = searchParams.get('redirect') || '/dashboard';
 
   const loginMutation = trpc.auth.login.useMutation({
     onSuccess: () => {
       toast.success("Login successful! Welcome back!");
-      setLocation("/dashboard");
+      setLocation(redirectUrl);
     },
     onError: (error) => {
       toast.error(error.message);
