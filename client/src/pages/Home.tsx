@@ -1003,7 +1003,6 @@ export default function Home() {
                 <li><Link href="/about" className="hover:text-white">About Us</Link></li>
                 <li><Link href="/how-to-play" className="hover:text-white">How To Play</Link></li>
                 <li><Link href="/faq" className="hover:text-white">FAQ</Link></li>
-                <li><Link href="/blog" className="hover:text-white">Blog</Link></li>
               </ul>
             </div>
             <div>
