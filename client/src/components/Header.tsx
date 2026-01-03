@@ -31,7 +31,6 @@ export function Header() {
     { name: t("header.howToPlay"), href: "/how-to-play" },
     { name: t("header.about"), href: "/about" },
     { name: t("header.faq"), href: "/faq" },
-    { name: t("header.blog"), href: "/blog" },
     { name: t("header.contact"), href: "/contact" },
   ];
 

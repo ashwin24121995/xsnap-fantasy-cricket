@@ -20,7 +20,6 @@ import Matches from "./pages/Matches";
 import TeamBuilder from "./pages/TeamBuilder";
 import Leaderboard from "./pages/Leaderboard";
 import Profile from "./pages/Profile";
-import Blog from "./pages/Blog";
 import MyTeams from "./pages/MyTeams";
 import MatchSummary from "./pages/MatchSummary";
 
@@ -35,7 +34,6 @@ function Router() {
       <Route path="/how-to-play" component={HowToPlay} />
       <Route path="/faq" component={FAQ} />
       <Route path="/contact" component={Contact} />
-      <Route path="/blog" component={Blog} />
       
       {/* Legal Pages */}
       <Route path="/terms" component={Terms} />

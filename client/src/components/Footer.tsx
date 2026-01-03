@@ -49,13 +49,6 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/blog">
-                  <a className="text-muted-foreground hover:text-primary transition-colors">
-                    Blog
-                  </a>
-                </Link>
-              </li>
-              <li>
                 <Link href="/contact">
                   <a className="text-muted-foreground hover:text-primary transition-colors">
                     Contact Us
