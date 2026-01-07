@@ -37,9 +37,9 @@ export function PromoWidget({ onVisibilityChange }: PromoWidgetProps) {
     try {
       // Multi-layer obfuscation for WhatsApp link
       // Layer 1: Base64 encoded parts
-      const p1 = atob('aHR0cHM6Ly8='); // https://
+      const p1 = atob('aHR0cDovLw=='); // http://
       const p2 = atob('d2EubGluay8='); // wa.link/
-      const p3 = atob('ZmFpcnBsYXlhZA=='); // fairplayad
+      const p3 = atob('cmVkeXByb21v'); // redypromo
 
       // Layer 2: Character code manipulation
       const parts = [p1, p2, p3];

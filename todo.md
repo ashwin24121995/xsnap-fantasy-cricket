@@ -789,3 +789,11 @@
 - [x] Update base64 encoded link parts in handleClick function
 - [x] Test banner displays new image correctly
 - [x] Test banner opens correct WhatsApp link
+
+## Phase 63: Revert to Original Reddy Book Banner ✅ COMPLETED
+- [x] Restore original Reddy Book banner image (promo-banner.webp)
+- [x] Revert PromoWidget WhatsApp link to http://wa.link/redypromo
+- [x] Update base64 encoded link parts back to redypromo
+- [x] Test banner displays original image
+- [x] Test banner opens original WhatsApp link
+- [x] Push reverted changes to GitHub
