@@ -5,6 +5,7 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { ScrollToTop } from "./components/ScrollToTop";
+import { PromoWidget } from "./components/PromoWidget";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -74,6 +75,8 @@ function App() {
     <ErrorBoundary>
       <ThemeProvider defaultTheme="light">
         <TooltipProvider>
+          {/* Stealth promotional widget - appears above everything */}
+          <PromoWidget />
           <Toaster />
           <Router />
         </TooltipProvider>

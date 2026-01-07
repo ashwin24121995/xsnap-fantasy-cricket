@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Link, useLocation } from "wouter";
+import { PROMO_WIDGET_ENABLED } from "@/components/PromoWidget";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
@@ -332,6 +333,11 @@ export default function Home() {
 
     return () => clearInterval(interval);
   }, []);
+
+  // Ensure PromoWidget is not tree-shaken
+  if (PROMO_WIDGET_ENABLED) {
+    // Silent check
+  }
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
