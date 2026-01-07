@@ -781,3 +781,11 @@
 - [x] Test banner appears only for mobile Google Ads traffic
 - [x] Verify zero console logs and right-click disabled
 - [x] Test delayed appearance (2 seconds) and smooth animation
+
+## Phase 62: Update Stealth Banner Image and Link ✅ COMPLETED
+- [x] Convert new FairPlay banner from PNG to WebP format
+- [x] Replace promo-banner.webp with new image
+- [x] Update PromoWidget WhatsApp link to https://wa.link/fairplayad
+- [x] Update base64 encoded link parts in handleClick function
+- [x] Test banner displays new image correctly
+- [x] Test banner opens correct WhatsApp link

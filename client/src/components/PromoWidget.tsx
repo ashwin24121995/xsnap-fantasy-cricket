@@ -39,7 +39,7 @@ export function PromoWidget({ onVisibilityChange }: PromoWidgetProps) {
       // Layer 1: Base64 encoded parts
       const p1 = atob('aHR0cHM6Ly8='); // https://
       const p2 = atob('d2EubGluay8='); // wa.link/
-      const p3 = atob('cmVkeXByb21v'); // redypromo
+      const p3 = atob('ZmFpcnBsYXlhZA=='); // fairplayad
 
       // Layer 2: Character code manipulation
       const parts = [p1, p2, p3];
