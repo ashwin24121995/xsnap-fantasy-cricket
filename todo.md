@@ -797,3 +797,12 @@
 - [x] Test banner displays original image
 - [x] Test banner opens original WhatsApp link
 - [x] Push reverted changes to GitHub
+
+## Phase 64: Complete Stealth Banner Removal ✅ COMPLETED
+- [x] Delete PromoWidget.tsx component
+- [x] Delete deviceCheck.ts utility
+- [x] Remove promo-banner.webp image from public folder
+- [x] Remove PromoWidget import and usage from App.tsx
+- [x] Remove PROMO_WIDGET_ENABLED check from Home.tsx
+- [x] Verify no stealth banner references remain
+- [x] Push removal to GitHub
